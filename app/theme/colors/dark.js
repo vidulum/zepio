@@ -129,12 +129,12 @@ export const DARK_COLORS = {
   walletSummaryTransparent: white,
 
   // Wallet Address
-  walletAddressBg: black,
-  walletAddressBorder: black,
-  walletAddressInput: friarGray,
-  walletAddressInputHovered: white,
-  walletAddressTooltip: black,
-  walletAddressTooltipBg: white,
+  wallevAddressBg: black,
+  wallevAddressBorder: black,
+  wallevAddressInput: friarGray,
+  wallevAddressInputHovered: white,
+  wallevAddressTooltip: black,
+  wallevAddressTooltipBg: white,
 
   // Console
   consoleBg: black,

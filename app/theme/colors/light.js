@@ -128,12 +128,12 @@ export const LIGHT_COLORS = {
   walletSummaryTransparent: black,
 
   // Wallet Address
-  walletAddressBg: white,
-  walletAddressBorder: alto,
-  walletAddressInput: doveGray,
-  walletAddressInputHovered: black,
-  walletAddressTooltip: white,
-  walletAddressTooltipBg: black,
+  wallevAddressBg: white,
+  wallevAddressBorder: alto,
+  wallevAddressInput: doveGray,
+  wallevAddressInputHovered: black,
+  wallevAddressTooltip: white,
+  wallevAddressTooltipBg: black,
 
   // Console
   consoleBg: white,

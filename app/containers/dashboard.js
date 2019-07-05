@@ -11,7 +11,7 @@ import { DashboardView } from '../views/dashboard';
 
 import rpc from '../../services/api';
 import store from '../../config/electron-store';
-import { SAPLING, MIN_CONFIRMATIONS_NUMBER } from '../constants/zcash-network';
+import { SAPLING, MIN_CONFIRMATIONS_NUMBER } from '../constants/vidulum-network';
 import { NODE_SYNC_TYPES } from '../constants/node-sync-types';
 import { listShieldedTransactions } from '../../services/shielded-transactions';
 import { sortByDescend } from '../utils/sort-by-descend';
@@ -33,7 +33,7 @@ export type MapStateToProps = {|
   unconfirmed: number,
   error: null | string,
   fetchState: FetchState,
-  zecPrice: number,
+  vdlPrice: number,
   addresses: string[],
   transactions: TransactionsList,
   isDaemonReady: boolean,
@@ -46,7 +46,7 @@ const mapStateToProps: AppState => MapStateToProps = ({ walletSummary, app }) =>
   unconfirmed: walletSummary.unconfirmed,
   error: walletSummary.error,
   fetchState: walletSummary.fetchState,
-  zecPrice: walletSummary.zecPrice,
+  vdlPrice: walletSummary.vdlPrice,
   addresses: walletSummary.addresses,
   transactions: walletSummary.transactions,
   isDaemonReady: app.nodeSyncType === NODE_SYNC_TYPES.READY,
@@ -62,11 +62,11 @@ const mapDispatchToProps: (dispatch: Dispatch) => MapDispatchToProps = (dispatch
 
     const [walletErr, walletSummary] = await eres(rpc.z_gettotalbalance());
     const [zAddressesErr, zAddresses = []] = await eres(rpc.z_listaddresses());
-    const [tAddressesErr, tAddresses = []] = await eres(rpc.getaddressesbyaccount(''));
+    const [vAddressesErr, vAddresses = []] = await eres(rpc.getaddressesbyaccount(''));
     const [transactionsErr, transactions] = await eres(rpc.listtransactions());
     const [unconfirmedBalanceErr, unconfirmedBalance] = await eres(rpc.getunconfirmedbalance());
 
-    if (walletErr || zAddressesErr || tAddressesErr || transactionsErr || unconfirmedBalanceErr) {
+    if (walletErr || zAddressesErr || vAddressesErr || transactionsErr || unconfirmedBalanceErr) {
       return dispatch(
         loadWalletSummaryError({
           error: 'Something went wrong!',
@@ -100,10 +100,10 @@ const mapDispatchToProps: (dispatch: Dispatch) => MapDispatchToProps = (dispatch
       if (newZAddress) zAddresses.push(newZAddress);
     }
 
-    if (!tAddresses.length) {
+    if (!vAddresses.length) {
       const [, newTAddress] = await eres(rpc.getnewaddress(''));
 
-      if (newTAddress) tAddresses.push(newTAddress);
+      if (newTAddress) vAddresses.push(newTAddress);
     }
 
     dispatch(
@@ -112,9 +112,9 @@ const mapDispatchToProps: (dispatch: Dispatch) => MapDispatchToProps = (dispatch
         total: walletSummary.total,
         shielded: walletSummary.private,
         unconfirmed: unconfirmedBalance,
-        addresses: [...zAddresses, ...tAddresses],
+        addresses: [...zAddresses, ...vAddresses],
         transactions: formattedTransactions,
-        zecPrice: new BigNumber(store.get('ZEC_DOLLAR_PRICE')).toNumber(),
+        vdlPrice: new BigNumber(store.get('VDL_DOLLAR_PRICE')).toNumber(),
       }),
     );
   },

@@ -15,18 +15,18 @@ describe('Startup', () => {
   test('should open the window', () => expect(app.client.getWindowCount()).resolves.toEqual(1));
 
   test('should have the right title', () => {
-    expect(app.client.getTitle()).resolves.toEqual('Zepio');
+    expect(app.client.getTitle()).resolves.toEqual('Vita');
   });
 
-  test('should show the text "Zepio Starting" in loading screen', async () => {
+  test('should show the text "Vita Starting" in loading screen', async () => {
     expect(
       app.client.element('div[data-testid~="LoadingScreen"]:first-child p').getHTML(),
-    ).resolves.toEqual(expect.stringContaining('Zepio Starting'));
+    ).resolves.toEqual(expect.stringContaining('Vita Starting'));
   });
 
-  test('should show the zcash logo in loading screen', () => expect(
+  test('should show the vidulum logo in loading screen', () => expect(
     app.client.getAttribute('div[data-testid~="LoadingScreen"]:first-child img', 'src'),
-  ).resolves.toEqual(expect.stringContaining('/assets/zcash-simple-icon.svg')));
+  ).resolves.toEqual(expect.stringContaining('/assets/vidulum-simple-icon.svg')));
 
   test('should show the loading circle in loading screen', () => {
     expect(

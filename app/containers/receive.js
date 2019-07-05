@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { BigNumber } from 'bignumber.js';
 
 import { ReceiveView } from '../views/receive';
-import { SAPLING } from '../constants/zcash-network';
+import { SAPLING } from '../constants/vidulum-network';
 
 import {
   loadAddresses,
@@ -46,9 +46,9 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => ({
 
     const [zAddressesErr, zAddresses] = await eres(rpc.z_listaddresses());
 
-    const [tAddressesErr, transparentAddresses] = await eres(rpc.getaddressesbyaccount(''));
+    const [vAddressesErr, transparentAddresses] = await eres(rpc.getaddressesbyaccount(''));
 
-    if (zAddressesErr || tAddressesErr) return dispatch(loadAddressesError({ error: 'Something went wrong!' }));
+    if (zAddressesErr || vAddressesErr) return dispatch(loadAddressesError({ error: 'Something went wrong!' }));
 
     const latestZAddress = zAddresses.find(addr => addr === electronStore.get(getLatestAddressKey('shielded')))
       || zAddresses[0];

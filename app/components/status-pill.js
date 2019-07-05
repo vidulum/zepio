@@ -64,7 +64,7 @@ const StatusPillLabel = styled(TextComponent)`
 `;
 
 const Tooltip = styled.div`
-  background: ${props => props.theme.colors.walletAddressTooltipBg};
+  background: ${props => props.theme.colors.wallevAddressTooltipBg};
   position: absolute;
   bottom: -35px;
   right: 5px;
@@ -86,14 +86,14 @@ const Tooltip = styled.div`
 
   &:after {
     border-color: transparent;
-    border-bottom-color: ${props => props.theme.colors.walletAddressTooltipBg};
+    border-bottom-color: ${props => props.theme.colors.wallevAddressTooltipBg};
     border-width: 5px;
     margin-left: -5px;
   }
 `;
 
 const TooltipText = styled(TextComponent)`
-  color: ${props => props.theme.colors.walletAddressTooltip};
+  color: ${props => props.theme.colors.wallevAddressTooltip};
   font-size: 10px;
   font-weight: 700;
 `;
@@ -217,7 +217,7 @@ class Component extends PureComponent<Props, State> {
       case NODE_SYNC_TYPES.READY:
         return 'Your node is synced.';
       default:
-        return 'There was an error. Try restarting Zepio.';
+        return 'There was an error. Try restarting Vita.';
     }
   };
 

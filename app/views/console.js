@@ -8,8 +8,8 @@ import humanizeDuration from 'humanize-duration';
 
 import { TextComponent } from '../components/text';
 
-import ConsoleSymbolDark from '../assets/images/console_zcash_dark.png';
-import ConsoleSymbolLight from '../assets/images/console_zcash_light.png';
+import ConsoleSymbolDark from '../assets/images/console_vidulum_dark.png';
+import ConsoleSymbolLight from '../assets/images/console_vidulum_light.png';
 import { DARK } from '../constants/themes';
 import rpc from '../../services/api';
 import store from '../../config/electron-store';
@@ -86,9 +86,9 @@ class Component extends PureComponent<Props, State> {
   };
 
   getLog = (state: State) => `
-    Thank you for running a Zcash node!
+    Thank you for running a Vidulum node!
     You're helping to strengthen the network and contributing to a social good :)
-    In order to ensure you are adequately protecting your privacy when using Zcash, please see <https://z.cash/support/security/>.
+    In order to ensure you are adequately protecting your privacy when using Vidulum, please see <https://vidulum.app/>.
 
     Block height | ${state.blockHeight}
     Connections | ${state.connections}
@@ -109,7 +109,7 @@ class Component extends PureComponent<Props, State> {
     return (
       <Wrapper id='console-wrapper'>
         <Fragment>
-          <ConsoleImg src={ConsoleSymbol} alt='Zcashd' />
+          <ConsoleImg src={ConsoleSymbol} alt='Vidulumd' />
           {this.getLog(this.state)
             .split('\n')
             .map((item, idx) => (

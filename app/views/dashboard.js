@@ -17,7 +17,7 @@ import { FETCH_STATE } from '../constants/fetch-states';
 
 import type { MapDispatchToProps, MapStateToProps } from '../containers/dashboard';
 
-import zepioLogo from '../assets/images/zcash-icon.png';
+import vitaLogo from '../assets/images/vidulum-icon.png';
 
 const ModalContent = styled(ColumnComponent)`
   min-height: 400px;
@@ -89,7 +89,7 @@ export class DashboardView extends PureComponent<Props> {
       shielded,
       transparent,
       unconfirmed,
-      zecPrice,
+      vdlPrice,
       addresses,
       transactions,
       fetchState,
@@ -106,7 +106,7 @@ export class DashboardView extends PureComponent<Props> {
           shielded={shielded}
           transparent={transparent}
           unconfirmed={unconfirmed}
-          zecPrice={zecPrice}
+          vdlPrice={vdlPrice}
           addresses={addresses}
         />
         {transactions.length === 0 ? (
@@ -116,14 +116,14 @@ export class DashboardView extends PureComponent<Props> {
             <TransactionDailyComponent
               transactionsDate={day}
               transactions={list}
-              zecPrice={zecPrice}
+              vdlPrice={vdlPrice}
               key={day}
             />
           ))
         )}
         {electron.remote.process.env.NODE_ENV !== 'test' && (
           <ConfirmDialogComponent
-            title='Welcome to Zepio'
+            title='Welcome to Vita'
             onConfirm={(toggle) => {
               store.set(DISPLAY_WELCOME_MODAL, false);
               toggle();
@@ -136,11 +136,11 @@ export class DashboardView extends PureComponent<Props> {
             {() => (
               <ModalContent>
                 <ContentWrapper>
-                  <LogoComponent src={zepioLogo} alt='Zepio' />
-                  <TitleComponent value='Hello from Zepio' isBold />
-                  <WelcomeText value='Zepio is a cross-platform full-node Zcash wallet that allows users to easily send and receive ZEC. With first-class support for Sapling shielded addresses, users are able to create truly private transactions using a modern and intuitive interface.' />
-                  <WelcomeText value='Zepio aims to improve the user experience for those seeking true financial privacy online.' />
-                  <AdditionalText value='Zepio will need to sync the Zcash blockchain data before using all features.' />
+                  <LogoComponent src={vitaLogo} alt='Vita' />
+                  <TitleComponent value='Hello from Vita' isBold />
+                  <WelcomeText value='Vita is a cross-platform full-node Vidulum wallet that allows users to easily send and receive VDL. With first-class support for Sapling shielded addresses, users are able to create truly private transactions using a modern and intuitive interface.' />
+                  <WelcomeText value='Vita aims to improve the user experience for those seeking true financial privacy online.' />
+                  <AdditionalText value='Vita will need to sync the Vidulum blockchain data before using all features.' />
                 </ContentWrapper>
               </ModalContent>
             )}

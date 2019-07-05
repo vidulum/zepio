@@ -21,7 +21,7 @@ import { SelectComponent } from '../components/select';
 
 import rpc from '../../services/api';
 import { DARK, LIGHT, THEME_MODE } from '../constants/themes';
-import { MAINNET, TESTNET } from '../constants/zcash-network';
+import { MAINNET, TESTNET } from '../constants/vidulum-network';
 import electronStore from '../../config/electron-store';
 import { openExternal } from '../utils/open-external';
 import { isTestnet } from '../../config/is-testnet';
@@ -30,7 +30,7 @@ import type { MapDispatchToProps, MapStateToProps } from '../containers/settings
 
 const EXPORT_VIEW_KEYS_TITLE = 'Export View Keys';
 const EXPORT_VIEW_KEYS_CONTENT = 'Viewing keys for shielded addresses allow for the disclosure of all transaction information to a preffered party. Anyone who holds these keys can see all shielded transaction details, but cannot spend coins as it is not a private key.';
-const EXPORT_VIEW_KEYS_LEARN_MORE = 'https://z.cash/blog/viewing-keys-selective-disclosure';
+const EXPORT_VIEW_KEYS_LEARN_MORE = 'https://medium.com/vidulum/what-are-public-and-private-keys-8b568507d6c6';
 const IMPORT_PRIV_KEYS_TITLE = 'Import Private Keys';
 const IMPORT_PRIV_KEYS_CONTENT = 'Importing private keys will add the spendable coins to this wallet.';
 const IMPORT_PRIV_KEYS_CONTENT_MODAL = 'Paste your private keys here, one per line. These spending keys will be imported into your wallet.';
@@ -40,7 +40,7 @@ const EXPORT_PRIV_KEYS_CONTENT = 'Beware: exporting your private keys will allow
 const BACKUP_WALLET_TITLE = 'Backup Wallet';
 const BACKUP_WALLET_CONTENT = 'It is recommended that you backup your wallet often to avoid possible issues arising from data corruption.';
 const CONFIRM_RELAUNCH_CONTENT = "You'll need to restart the application and the internal full node. Are you sure you want to do this?";
-const RUNNING_NON_EMBEDDED_DAEMON_WARNING = 'You are using a separate zcashd process, in order to change the network, you need to restart the process yourself';
+const RUNNING_NON_EMBEDDED_DAEMON_WARNING = 'You are using a separate vidulumd process, in order to change the network, you need to restart the process yourself';
 
 const SHIELDED_ADDRESS_PRIVATE_KEY_PREFIX = isTestnet() ? 'secret-extended-key' : 'SK';
 
@@ -232,14 +232,14 @@ export class SettingsView extends PureComponent<Props, State> {
     const { app } = electron.remote;
 
     if (os.platform() === 'darwin') {
-      return path.join(app.getPath('appData'), 'Zcash');
+      return path.join(app.getPath('appData'), 'Vidulum');
     }
 
     if (os.platform() === 'linux') {
-      return path.join(app.getPath('home'), '.zcash');
+      return path.join(app.getPath('home'), '.vidulum');
     }
 
-    return path.join(app.getPath('appData'), 'Zcash');
+    return path.join(app.getPath('appData'), 'Vidulum');
   };
 
   exportViewKeys = () => {
@@ -317,7 +317,7 @@ export class SettingsView extends PureComponent<Props, State> {
   };
 
   backupWalletDat = async () => {
-    const backupFileName = `zcash-wallet-backup-${dateFns.format(
+    const backupFileName = `vidulum-wallet-backup-${dateFns.format(
       new Date(),
       'YYYY-MM-DD-mm-ss',
     )}.dat`;
@@ -330,8 +330,8 @@ export class SettingsView extends PureComponent<Props, State> {
 
         const WALLET_DIR = this.getWalletFolderPath();
 
-        const zcashDir = isTestnet() ? path.join(WALLET_DIR, 'testnet3') : WALLET_DIR;
-        const walletDatPath = `${zcashDir}/wallet.dat`;
+        const vidulumDir = isTestnet() ? path.join(WALLET_DIR, 'testnet3') : WALLET_DIR;
+        const walletDatPath = `${vidulumDir}/wallet.dat`;
 
         const [cannotAccess] = await eres(promisify(fs.access)(walletDatPath));
 
@@ -362,7 +362,7 @@ export class SettingsView extends PureComponent<Props, State> {
       error,
     } = this.state;
 
-    const { zcashNetwork, updateZcashNetwork, embeddedDaemon } = this.props;
+    const { vidulumNetwork, updateVidulumNetwork, embeddedDaemon } = this.props;
 
     const themeOptions = [{ label: 'Dark', value: DARK }, { label: 'Light', value: LIGHT }];
 
@@ -376,14 +376,14 @@ export class SettingsView extends PureComponent<Props, State> {
         {embeddedDaemon && (
           <ConfirmDialogComponent
             title='Confirm'
-            onConfirm={() => updateZcashNetwork(zcashNetwork === MAINNET ? TESTNET : MAINNET)}
+            onConfirm={() => updateVidulumNetwork(vidulumNetwork === MAINNET ? TESTNET : MAINNET)}
             showButtons={embeddedDaemon}
             renderTrigger={toggleVisibility => (
               <ThemeSelectWrapper>
-                <SettingsTitle value='Zcash Network' />
+                <SettingsTitle value='Vidulum Network' />
                 <SelectComponent
-                  onChange={value => (zcashNetwork !== value ? toggleVisibility() : undefined)}
-                  value={zcashNetwork}
+                  onChange={value => (vidulumNetwork !== value ? toggleVisibility() : undefined)}
+                  value={vidulumNetwork}
                   options={networkOptions}
                 />
               </ThemeSelectWrapper>

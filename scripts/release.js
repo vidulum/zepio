@@ -16,8 +16,8 @@ import packageJson from '../package';
 const DIST_FOLDER = path.join(__dirname, '..', './dist');
 const VERSION = packageJson.version;
 const GH_TOKEN = process.env.GH_TOKEN;
-const OWNER = 'andrerfneves';
-const PROJECT = 'zepio';
+const OWNER = 'Vidulum';
+const PROJECT = 'VITA';
 
 const octokit = new Octokit({ auth: GH_TOKEN });
 
@@ -38,15 +38,15 @@ const getFileName = (name) => {
 
   switch (extension) {
     case 'dmg':
-      return `Zepio-macOS-v${VERSION}.dmg`;
+      return `Vita-macOS-v${VERSION}.dmg`;
     case 'deb':
-      return `zepio-linux-v${VERSION}.deb`;
+      return `vita-linux-v${VERSION}.deb`;
     case 'exe':
-      return `Zepio-Windows-v${VERSION}.exe`;
+      return `Vita-Windows-v${VERSION}.exe`;
     case 'zip':
       return `signatures-v${VERSION}.zip`;
     default:
-      return 'Zepio';
+      return 'Vita';
   }
 };
 

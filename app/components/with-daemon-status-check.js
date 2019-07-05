@@ -27,7 +27,7 @@ export const withDaemonStatusCheck = <PassedProps: {}>(
     state = {
       isRunning: false,
       progress: 0,
-      message: 'Zepio Starting',
+      message: 'Vita Starting',
     };
 
     componentDidMount() {
@@ -35,7 +35,7 @@ export const withDaemonStatusCheck = <PassedProps: {}>(
       this.timer = setInterval(this.runTest, 3000);
 
       electron.ipcRenderer.on(
-        'zcash-daemon-status',
+        'vidulum-daemon-status',
         (
           event: empty,
           message: {
@@ -87,7 +87,7 @@ export const withDaemonStatusCheck = <PassedProps: {}>(
         .catch((error) => {
           this.requestOnTheFly = false;
 
-          const statusMessage: string = error.message === 'Something went wrong' ? 'Zepio Starting' : error.message;
+          const statusMessage: string = error.message === 'Something went wrong' ? 'Vita Starting' : error.message;
           const isRpcOff = Math.trunc(error.statusCode / 100) === 5;
 
           this.setState({

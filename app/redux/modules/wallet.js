@@ -22,7 +22,7 @@ export const loadWalletSummarySuccess = ({
   unconfirmed,
   addresses,
   transactions,
-  zecPrice,
+  vdlPrice,
 }: {
   total: number,
   shielded: number,
@@ -30,7 +30,7 @@ export const loadWalletSummarySuccess = ({
   unconfirmed: number,
   addresses: string[],
   transactions: TransactionsList,
-  zecPrice: number,
+  vdlPrice: number,
 }) => ({
   type: LOAD_WALLET_SUMMARY_SUCCESS,
   payload: {
@@ -40,7 +40,7 @@ export const loadWalletSummarySuccess = ({
     unconfirmed,
     addresses,
     transactions,
-    zecPrice,
+    vdlPrice,
   },
 });
 
@@ -55,7 +55,7 @@ export type State = {
   transparent: number,
   unconfirmed: number,
   error: string | null,
-  zecPrice: number,
+  vdlPrice: number,
   addresses: string[],
   transactions: TransactionsList,
   fetchState: FetchState,
@@ -67,7 +67,7 @@ const initialState = {
   transparent: 0,
   unconfirmed: 0,
   error: null,
-  zecPrice: 0,
+  vdlPrice: 0,
   addresses: [],
   transactions: [],
   fetchState: FETCH_STATE.INITIALIZING,

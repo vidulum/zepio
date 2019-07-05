@@ -13,7 +13,7 @@ const getRPCConfig = () => {
 
   return {
     host: rpcconnect || '127.0.0.1',
-    port: rpcport || (isTestnet() ? 18232 : 8232),
+    port: rpcport || (isTestnet() ? 27676 : 17676),
     user: (store.get('rpcuser'): string),
     password: (store.get('rpcpassword'): string),
   };
@@ -21,12 +21,12 @@ const getRPCConfig = () => {
 
 const getMessage = (statusCode: number, isECONNREFUSED: boolean) => {
   if (isECONNREFUSED) {
-    return 'Zepio could not find a daemon running, please check the logs!';
+    return 'Vita could not find a daemon running, please check the logs!';
   }
 
   switch (statusCode) {
     case 401:
-      return 'Not authorized to access Zcash RPC, please check your rpcuser and rpcpassword';
+      return 'Not authorized to access Vidulum RPC, please check your rpcuser and rpcpassword';
     default:
       return 'Something went wrong';
   }

@@ -25,8 +25,8 @@ const AddressWrapper = styled.div`
   padding: 0 13px 0 0;
   margin-bottom: 10px;
   width: 100%;
-  background: ${props => props.theme.colors.walletAddressBg};
-  border: 1px solid ${props => props.theme.colors.walletAddressBorder};
+  background: ${props => props.theme.colors.wallevAddressBg};
+  border: 1px solid ${props => props.theme.colors.wallevAddressBorder};
 `;
 
 const Address = styled(TextComponent)`
@@ -40,7 +40,7 @@ const Address = styled(TextComponent)`
   outline: none;
   font-family: ${props => props.theme.fontFamily};
   font-size: 13px;
-  color: ${props => props.theme.colors.walletAddressInput};
+  color: ${props => props.theme.colors.wallevAddressInput};
   line-height: 1;
   letter-spacing: 0.5px;
   overflow-x: scroll;
@@ -52,7 +52,7 @@ const Address = styled(TextComponent)`
   }
 
   ${AddressWrapper}:hover & {
-    color: ${props => props.theme.colors.walletAddressInputHovered};
+    color: ${props => props.theme.colors.wallevAddressInputHovered};
   }
 
   ::placeholder {
@@ -64,11 +64,11 @@ const AddressBalance = styled(TextComponent)`
   font-weight: 700;
   padding-left: 12px;
   font-size: 12px;
-  color: ${props => props.theme.colors.walletAddressInput};
+  color: ${props => props.theme.colors.wallevAddressInput};
   width: 10%;
 
   ${AddressWrapper}:hover & {
-    color: ${props => props.theme.colors.walletAddressInputHovered};
+    color: ${props => props.theme.colors.wallevAddressInputHovered};
   }
 `;
 
@@ -118,7 +118,7 @@ const IconImage = styled.img`
 `;
 
 const CopyTooltip = styled.div`
-  background: ${props => props.theme.colors.walletAddressTooltipBg};
+  background: ${props => props.theme.colors.wallevAddressTooltipBg};
   position: absolute;
   top: -27px;
   left: -8px;
@@ -127,7 +127,7 @@ const CopyTooltip = styled.div`
 `;
 
 const TooltipText = styled(TextComponent)`
-  color: ${props => props.theme.colors.walletAddressTooltip};
+  color: ${props => props.theme.colors.wallevAddressTooltip};
   font-size: 10px;
   font-weight: 700;
 `;
@@ -317,4 +317,4 @@ class Component extends PureComponent<Props, State> {
   }
 }
 
-export const WalletAddress = withTheme(Component);
+export const WallevAddress = withTheme(Component);

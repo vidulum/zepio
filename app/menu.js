@@ -3,8 +3,8 @@
 import { openExternal } from './utils/open-external';
 import packageJson from '../package.json';
 
-const DOCS_URL = 'https://zepiowallet.com/';
-const REPOSITORY_URL = 'https://github.com/ZcashFoundation/zepio/issues';
+const DOCS_URL = 'https://vidulum.app/';
+const REPOSITORY_URL = 'https://github.com/vidulum/zepio/issues/';
 
 const menu = [
   {
@@ -32,7 +32,7 @@ const helpMenu = {
   role: 'help',
   submenu: [
     {
-      label: `Zepio Version v${packageJson.version}`,
+      label: `Vita Version v${packageJson.version}`,
       enabled: false,
     },
     { type: 'separator' },

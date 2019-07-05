@@ -27,7 +27,7 @@ import { ascii2hex } from '../utils/ascii-to-hexadecimal';
 import { isHex } from '../utils/is-hex';
 import { getCoinName } from '../utils/get-coin-name';
 import { openExternal } from '../utils/open-external';
-import { ZCASH_EXPLORER_BASE_URL } from '../constants/explorer';
+import { VIDULUM_EXPLORER_BASE_URL } from '../constants/explorer';
 
 import SentIcon from '../assets/images/transaction_sent_icon_dark.svg';
 import MenuIconDark from '../assets/images/menu_icon_dark.svg';
@@ -194,7 +194,7 @@ const ValidateItemLabel = styled(ItemLabel)`
   margin-bottom: -1px;
 `;
 
-const SendZECValue = styled(TextComponent)`
+const SendVDLValue = styled(TextComponent)`
   color: ${props => props.theme.colors.transactionSent};
   font-size: ${props => `${props.theme.fontSize.large}em`};
   font-weight: ${props => String(props.theme.fontWeight.bold)};
@@ -301,7 +301,7 @@ const MemoValidationText = styled(TextComponent)`
 `;
 
 const SimpleTooltip = styled.div`
-  background: ${props => props.theme.colors.walletAddressTooltipBg};
+  background: ${props => props.theme.colors.wallevAddressTooltipBg};
   position: absolute;
   top: -24px;
   left: 0;
@@ -311,7 +311,7 @@ const SimpleTooltip = styled.div`
 `;
 
 const TooltipText = styled(TextComponent)`
-  color: ${props => props.theme.colors.walletAddressTooltip};
+  color: ${props => props.theme.colors.wallevAddressTooltip};
   font-size: 10px;
   font-weight: 700;
   text-align: center;
@@ -438,12 +438,12 @@ class Component extends PureComponent<Props, State> {
 
   componentDidMount() {
     const {
-      resetSendView, loadAddresses, loadZECPrice, match,
+      resetSendView, loadAddresses, loadVDLPrice, match,
     } = this.props;
 
     resetSendView();
     loadAddresses();
-    loadZECPrice();
+    loadVDLPrice();
 
     if (match.params.to) {
       this.handleChange('to')(match.params.to);
@@ -641,7 +641,7 @@ class Component extends PureComponent<Props, State> {
           <ZSuccessLabel value='Success!' />
           <ZSuccessContentWrapper>
             <ZSuccessMessage value='Your transaction was sent successfully.' />
-            <ZSuccessTransactionId value={`Transaction ID: ${operationId}`} onClick={() => openExternal(ZCASH_EXPLORER_BASE_URL + operationId)} />
+            <ZSuccessTransactionId value={`Transaction ID: ${operationId}`} onClick={() => openExternal(VIDULUM_EXPLORER_BASE_URL + operationId)} />
           </ZSuccessContentWrapper>
           <FormButton
             label='Done'
@@ -677,7 +677,7 @@ class Component extends PureComponent<Props, State> {
         <ConfirmItemWrapper alignItems='center'>
           <ColumnComponent>
             <ItemLabel value='AMOUNT' />
-            <SendZECValue value={`-${valueSent}`} />
+            <SendVDLValue value={`-${valueSent}`} />
             <SendUSDValue value={`-${valueSentInUsd}`} />
           </ColumnComponent>
           <ColumnComponent>
@@ -746,7 +746,7 @@ class Component extends PureComponent<Props, State> {
     const {
       addresses,
       balance,
-      zecPrice,
+      vdlPrice,
       isSending,
       error,
       operationId,
@@ -775,9 +775,9 @@ class Component extends PureComponent<Props, State> {
     const fixedAmount = isEmpty || new BigNumber(amount).eq(0) ? 0 : this.getAmountWithFee();
     const coinName = getCoinName();
 
-    const zecBalance = formatNumber({ value: balance, append: `${coinName} ` });
-    const zecBalanceInUsd = formatNumber({
-      value: new BigNumber(balance).times(zecPrice).toNumber(),
+    const vdlBalance = formatNumber({ value: balance, append: `${coinName} ` });
+    const vdlBalanceInUsd = formatNumber({
+      value: new BigNumber(balance).times(vdlPrice).toNumber(),
       append: 'USD $',
     });
     const valueSent = formatNumber({
@@ -785,7 +785,7 @@ class Component extends PureComponent<Props, State> {
       append: `${coinName} `,
     });
     const valueSentInUsd = formatNumber({
-      value: new BigNumber(fixedAmount).times(zecPrice).toNumber(),
+      value: new BigNumber(fixedAmount).times(vdlPrice).toNumber(),
       append: 'USD $',
     });
 
@@ -943,8 +943,8 @@ class Component extends PureComponent<Props, State> {
           <InfoCard>
             <InfoContent>
               <InfoCardLabel value='Available Funds' />
-              <TextComponent value={zecBalance} size={1.25} isBold />
-              <InfoCardUSD value={zecBalanceInUsd} size={0.84375} />
+              <TextComponent value={vdlBalance} size={1.25} isBold />
+              <InfoCardUSD value={vdlBalanceInUsd} size={0.84375} />
             </InfoContent>
             <Divider opacity={0.3} />
             <InfoContent>

@@ -2,7 +2,7 @@
 
 import electronStore from '../../../config/electron-store';
 
-import { ZCASH_NETWORK, EMBEDDED_DAEMON } from '../../constants/zcash-network';
+import { VIDULUM_NETWORK, EMBEDDED_DAEMON } from '../../constants/vidulum-network';
 import { NODE_SYNC_TYPES } from '../../constants/node-sync-types';
 
 import type { Action } from '../../types/redux';
@@ -12,7 +12,7 @@ export type State = {|
   error: string | null,
   nodeSyncProgress: number,
   nodeSyncType: 'ready' | 'syncing' | 'error',
-  zcashNetwork: string,
+  vidulumNetwork: string,
   embeddedDaemon: boolean,
   isRefetching: boolean,
 |};
@@ -53,7 +53,7 @@ const initialState: State = {
   error: null,
   nodeSyncProgress: 0,
   nodeSyncType: NODE_SYNC_TYPES.SYNCING,
-  zcashNetwork: electronStore.get(ZCASH_NETWORK),
+  vidulumNetwork: electronStore.get(VIDULUM_NETWORK),
   embeddedDaemon: electronStore.get(EMBEDDED_DAEMON),
   isRefetching: false,
 };

@@ -1,22 +1,22 @@
 {
-  "name": "zepio",
-  "productName": "Zepio",
-  "version": "0.7.4",
-  "description": "Zepio | Cross-platform sapling-enabled full-node Zcash wallet",
+  "name": "VITA",
+  "productName": "VITA",
+  "version": "0.1.0",
+  "description": "VITA | Cross-platform sapling-enabled full-node Vidulum wallet",
   "main": "config/main.js",
-  "homepage": "https://zepiowallet.com",
+  "homepage": "https://vidulum.app",
   "license": "MIT",
   "author": {
-    "name": "André Neves",
-    "email": "andrerfneves@protonmail.com",
-    "url": "https://andrenev.es"
+    "name": "NERDiT",
+    "email": "nerdit@vidulum.org",
+    "url": "https://vidulum.app"
   },
   "bugs": {
-    "url": "https://github.com/ZcashFoundation/zepio/issues"
+    "url": "https://github.com/vidulum/zepio/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ZcashFoundation/zepio"
+    "url": "git+https://github.com/vidulum/zepio"
   },
   "scripts": {
     "start": "yarn check --integrity && concurrently \"cross-env BROWSER=none yarn dev\" \"wait-on http://0.0.0.0:8080 && yarn electron:dev\"",
@@ -38,7 +38,7 @@
     "icon:build": "./node_modules/.bin/electron-icon-maker --input=build-assets/icon.png --output=./build",
     "docz:dev": "docz dev",
     "docz:build": "docz build",
-    "docz:deploy": "yarn docz:build && cd ./.docz/dist && now && now alias zec-docz.now.sh",
+    "docz:deploy": "yarn docz:build && cd ./.docz/dist && now && now alias vdl-docz.now.sh",
     "test": "jest --runInBand",
     "test:watch": "jest --watch",
     "test:unit": "jest --testPathIgnorePatterns=e2e --testPathIgnorePatterns=setup",
@@ -52,8 +52,8 @@
     }
   },
   "build": {
-    "appId": "com.zcashfoundation",
-    "productName": "Zepio",
+    "appId": "app.vidulum",
+    "productName": "VITA",
     "asar": true,
     "directories": {
       "buildResources": "build",
@@ -93,8 +93,8 @@
           ]
         },
         {
-          "from": "bin/zcash-fetch-params",
-          "to": "resources/bin/zcash-fetch-params"
+          "from": "bin/vidulum-fetch-params",
+          "to": "resources/bin/vidulum-fetch-params"
         }
       ]
     },
@@ -114,8 +114,8 @@
           ]
         },
         {
-          "from": "bin/zcash-fetch-params",
-          "to": "resources/bin/zcash-fetch-params"
+          "from": "bin/vidulum-fetch-params",
+          "to": "resources/bin/vidulum-fetch-params"
         }
       ]
     },
@@ -133,9 +133,9 @@
       ]
     },
     "protocols": {
-      "name": "zcash",
+      "name": "vidulum",
       "schemes": [
-        "zcash"
+        "vidulum"
       ]
     }
   },

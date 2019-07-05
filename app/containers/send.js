@@ -9,7 +9,7 @@ import rpc from '../../services/api';
 import { SendView } from '../views/send';
 
 import {
-  loadZECPrice,
+  loadVDLPrice,
   sendTransaction,
   sendTransactionSuccess,
   sendTransactionError,
@@ -40,7 +40,7 @@ export type SendTransactionInput = {
 
 export type MapStateToProps = {|
   balance: number,
-  zecPrice: number,
+  vdlPrice: number,
   addresses: { address: string, balance: number }[],
   error: string | null,
   fetchState: FetchState,
@@ -52,7 +52,7 @@ export type MapStateToProps = {|
 
 const mapStateToProps = ({ sendStatus, receive, app }: AppState): MapStateToProps => ({
   balance: sendStatus.addressBalance,
-  zecPrice: sendStatus.zecPrice,
+  vdlPrice: sendStatus.vdlPrice,
   addresses: receive.addresses,
   error: sendStatus.error,
   fetchState: receive.fetchState,
@@ -67,7 +67,7 @@ export type MapDispatchToProps = {|
   loadAddresses: () => Promise<void>,
   resetSendView: () => void,
   validateAddress: ({ address: string }) => Promise<void>,
-  loadZECPrice: () => void,
+  loadVDLPrice: () => void,
   getAddressBalance: ({ address: string }) => Promise<void>,
 |};
 
@@ -166,9 +166,9 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => ({
 
     const [zAddressesErr, zAddresses] = await eres(rpc.z_listaddresses());
 
-    const [tAddressesErr, transparentAddresses] = await eres(rpc.getaddressesbyaccount(''));
+    const [vAddressesErr, transparentAddresses] = await eres(rpc.getaddressesbyaccount(''));
 
-    if (zAddressesErr || tAddressesErr) return dispatch(loadAddressesError({ error: 'Something went wrong!' }));
+    if (zAddressesErr || vAddressesErr) return dispatch(loadAddressesError({ error: 'Something went wrong!' }));
 
     const latestZAddress = zAddresses.find(addr => addr === store.get(getLatestAddressKey('shielded'))) || zAddresses[0];
 
@@ -206,12 +206,12 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => ({
       }),
     );
   },
-  loadZECPrice: () => dispatch(
-    loadZECPrice({
-      value: Number(store.get('ZEC_DOLLAR_PRICE')),
+  loadVDLPrice: () => dispatch(
+    loadVDLPrice({
+      value: Number(store.get('VDL_DOLLAR_PRICE')),
     }),
   ),
-  getAddressBalance: async ({ address }: { address: string }) => {
+  gevAddressBalance: async ({ address }: { address: string }) => {
     const [err, balance] = await eres(rpc.z_getbalance(address));
 
     if (err) return dispatch(loadAddressBalanceError({ error: "Can't load your balance address" }));
