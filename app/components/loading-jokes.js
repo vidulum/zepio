@@ -1,0 +1,23 @@
+
+export const jokes = [
+    'We’ll we’ll we’ll…if it isn’t autocorrect.',
+    "Why aren't iPhone chargers called Apple Juice?!",
+    'Don’t use “beef stew” as a computer password. It’s not stroganoff.',
+    'In a world without fences and walls, who needs Gates and Windows?',
+    'CAPS LOCK – Preventing Login Since 1980.',
+    'How does a computer get drunk? It takes screenshots.',
+    'Why do they call it hyper text? Too much JAVA.',
+    "There is a band called 1023MB. They haven't had any gigs yet.",
+    'Why did the developer go broke? Because he used up all his cache',
+    'Why do Java developers wear glasses? Because they cannot C#',
+    'How many programmers does it take to change a light bulb? None. Its a hardware problem.',
+    'There are three kinds of people: those who can count and those who can’t.',
+    'Latest survey shows that 3 out of 4 people make up 75% of the world’s population.',
+    '1f u c4n r34d th1s u r34lly n33d t0 g37 l41d.',
+    'The box said ‘Requires Windows Vista or better’. So I installed LINUX.',
+    'The truth is out there. Anybody got the URL?',
+    'Error reading FAT record: Try the SKINNY one? (Y/N)',
+    'C program run. C program crash. C programmer quit.',
+    'Where did the hacker go for the long weekend? Phishing.',
+    'There are 10 types of people in the world: those who understand binary, and those who don’t.',
+  ];

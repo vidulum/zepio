@@ -21,7 +21,7 @@ const getRPCConfig = () => {
 
 const getMessage = (statusCode: number, isECONNREFUSED: boolean) => {
   if (isECONNREFUSED) {
-    return 'Vita could not find a daemon running, please check the logs!';
+    return 'Vidulum Desktop Wallet could not find a daemon running, please check the logs!';
   }
 
   switch (statusCode) {
@@ -66,11 +66,11 @@ const api: APIMethods = METHODS.reduce(
           // eslint-disable-next-line
           return Promise.reject({
             message:
-              payload.body?.error?.message
-              || getMessage(
-                payload.statusCode,
-                (payload.message || '').indexOf('ECONNREFUSED') !== -1,
-              ),
+              payload.body ?.error ?.message
+                || getMessage(
+                  payload.statusCode,
+                  (payload.message || '').indexOf('ECONNREFUSED') !== -1,
+                ),
             statusCode: payload.statusCode,
           });
         });

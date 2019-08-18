@@ -12,11 +12,9 @@ type Payload = {
 */
 // eslint-disable-next-line
 export default (currencies: string[] = ['USD']): Promise<Payload> => new Promise((resolve, reject) => {
-  const ENDPOINT = `https://min-api.cryptocompare.com/data/price?fsym=VDL&tsyms=${currencies.join(
-    ',',
-  )}&api_key=${String(process.env.VDL_PRICE_API_KEY)}`;
+  const ENDPOINT = 'https://api.coingecko.com/api/v3/simple/price?ids=vidulum&vs_currencies=USD';
 
   got(ENDPOINT)
-    .then(response => resolve(JSON.parse(response.body)))
+    .then(response => resolve(JSON.parse(response.body).vidulum.usd))
     .catch(reject);
 });

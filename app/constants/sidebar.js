@@ -18,14 +18,22 @@ import TransactionsIconActive from '../assets/images/transactions_icon_active.sv
 import SettingsIconDark from '../assets/images/settings_icon_dark.svg';
 import SettingsIconLight from '../assets/images/settings_icon_light.svg';
 import SettingsIconActive from '../assets/images/settings_icon_active.svg';
+import MasternodesIconDark from '../assets/images/masternodes_icon_dark.svg';
+import MasternodesIconLight from '../assets/images/masternodes_icon_light.svg';
+import MasternodesIconActive from '../assets/images/masternodes_icon_active.svg';
+import ShieldIconActive from '../assets/images/shield_icon_active.svg';
+import ShieldIconDark from '../assets/images/shield_icon_dark.svg';
+import ShieldIconLight from '../assets/images/shield_icon_light.svg';
 
 import {
   DASHBOARD_ROUTE,
   SEND_ROUTE,
+  SHIELD_ROUTE,
   RECEIVE_ROUTE,
   SETTINGS_ROUTE,
   CONSOLE_ROUTE,
   TRANSACTIONS_ROUTE,
+  MASTERNODES_ROUTE,
 } from './routes';
 import { LIGHT } from './themes';
 
@@ -53,6 +61,17 @@ export const MENU_OPTIONS = [
     },
   },
   {
+    label: 'Shield',
+    route: SHIELD_ROUTE,
+    icon: (isActive: boolean, themeMode: string) => {
+      if (themeMode === LIGHT) {
+        return ShieldIconLight;
+      }
+
+      return (isActive) ? ShieldIconActive : ShieldIconDark;
+    },
+  },
+  {
     label: 'Receive',
     route: RECEIVE_ROUTE,
     icon: (isActive: boolean, themeMode: string) => {
@@ -72,6 +91,17 @@ export const MENU_OPTIONS = [
       }
 
       return (isActive) ? TransactionsIconActive : TransactionsIconDark;
+    },
+  },
+  {
+    label: 'Masternodes',
+    route: MASTERNODES_ROUTE,
+    icon: (isActive: boolean, themeMode: string) => {
+      if (themeMode === LIGHT) {
+        return MasternodesIconLight;
+      }
+
+      return (isActive) ? MasternodesIconActive : MasternodesIconDark;
     },
   },
   {

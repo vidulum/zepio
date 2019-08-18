@@ -14,7 +14,6 @@ import isDev from 'electron-is-dev';
 import { registerDebugShortcut } from '../utils/debug-shortcut';
 import runDaemon from './daemon/vidulumd-child-process';
 import { log as vidulumLog, cleanLogs } from './daemon/logger';
-import getVdlPrice from '../services/vdl-price';
 import store from './electron-store';
 import { handleDeeplink } from './handle-deeplink';
 import { MENU } from '../app/menu';
@@ -69,8 +68,6 @@ const createWindow = () => {
       webSecurity: true,
     },
   });
-
-  getVdlPrice().then(({ USD }) => store.set('VDL_DOLLAR_PRICE', String(USD)));
 
   mainWindow.setVisibleOnAllWorkspaces(true);
   registerDebugShortcut(app, mainWindow);

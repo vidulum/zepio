@@ -42,7 +42,7 @@ const OutsideLabel = styled(TextComponent)`
 `;
 
 const TotalContainer = styled.div`
-  min-width: 270px;
+  min-width: 300px;
 `;
 
 const DetailContainer = styled.div`
@@ -105,7 +105,9 @@ const DetailMainContainer = styled.div`
 type Props = {
   total: number,
   shielded: number,
+  generated: Number,
   transparent: number,
+  immature: number,
   unconfirmed: number,
   vdlPrice: number,
   theme: AppTheme,
@@ -115,6 +117,7 @@ export const Component = ({
   total,
   shielded,
   transparent,
+  immature,
   unconfirmed,
   vdlPrice,
   theme,
@@ -127,24 +130,30 @@ export const Component = ({
       <Wrapper>
         <TotalContainer>
           <TextComponent
-            size={theme.fontSize.medium * 2.4}
+            size={theme.fontSize.medium*1.5}
             value={`${coinName} ${formatNumber({ value: total })}`}
             isBold
           />
           <USDValue
             value={`USD $${formatNumber({ value: total * vdlPrice })}`}
-            size={theme.fontSize.medium * 2}
+            size={theme.fontSize.medium}
           />
+          <DetailContainer>
+            <ShieldedValue value={`SHIELDED ${coinName} ${formatNumber({ value: shielded })}`}
+            isBold
+            size='16px'
+            />
+          </DetailContainer>
         </TotalContainer>
         <DetailMainContainer>
-          <DetailContainer>
-            <ShieldedValue value='SHIELDED' isBold size={theme.fontSize.small} />
+        <DetailContainer>
+            <DefaultLabel value='IMMATURE' isBold size={theme.fontSize.small} />
             <MiddleLabel
-              value={`${coinName} ${formatNumber({ value: shielded })}`}
+              value={`${coinName} ${formatNumber({ value: immature })}`}
               isBold
               size='16px'
             />
-            <USDValue value={`USD $${formatNumber({ value: shielded * vdlPrice })}`} />
+            <USDValue value={`USD $${formatNumber({ value: immature * vdlPrice })}`} />
           </DetailContainer>
           <DetailContainer>
             <DefaultLabel value='TRANSPARENT' isBold size={theme.fontSize.small} />
@@ -158,7 +167,7 @@ export const Component = ({
           <DetailContainer>
             <UnconfirmedLabel value='UNCONFIRMED' isBold size={theme.fontSize.small} />
             <UnconfirmedValue
-              value={`${coinName} ${formatNumber({ value: transparent })}`}
+              value={`${coinName} ${formatNumber({ value: unconfirmed })}`}
               isBold
               size='16px'
             />

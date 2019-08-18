@@ -24,11 +24,11 @@ const manatee = '#8E8E96';
 
 // Colors
 const error = '#FF6C6C';
-const success = '#66BE54';
-const cornflowerBlue = '#5684EB';
-const saffron = '#F4B728';
-const brightSun = '#FFE240';
-const offBrand = 'rgba(238,201,76,0.65)';
+const success = '#51d1f5';
+const cornflowerBlue = '#13224a';
+const saffron = '#3054bc';
+const brightSun = '#36bbe0';
+const offBrand = 'rgba(54,187,224,0.65)';
 
 export const LIGHT_COLORS = {
   // General
@@ -67,7 +67,7 @@ export const LIGHT_COLORS = {
   // Buttons
   buttonPrimaryBg: cornflowerBlue,
   buttonPrimaryDisabledBg: cornflowerBlue,
-  buttonPrimaryText: white,
+  buttonPrimaryText: alto,
   buttonSecondaryBg: scorpion,
   buttonSecondaryDisabledBg: cornflowerBlue,
   buttonSecondaryBorder: scorpion,
@@ -92,6 +92,24 @@ export const LIGHT_COLORS = {
   transactionDetailsLabel: dustyGray,
   transactionLabelText: doveGray,
   transactionLabelTextHovered: black,
+
+    // Masternode
+    masternodesEnable: success,
+    masternodesExpire: error,
+    masternodesVinSpent: error,
+    masternodesRemoved: error,
+    masternodesPosError: error,
+    masternodesItemHovered: mineShaft,
+    masternodesItemBg: white,
+    masternodesItemOwnedBg: brightSun,
+    masternodesItemHoverBg: whiteHover,
+    masternodesItemBorder: alto,
+    masternodesLabelText: boulder,
+    masternodesLabelTextHovered: white,
+    masternodesPanelHeader: starDust,
+    masternodesSummaryBg: white,
+    masternodesSummaryBorder: alto,
+    masternodesSummaryColumnBorder: alto,  
 
   // Status Pill
   statusPillLabel: text,
@@ -128,12 +146,12 @@ export const LIGHT_COLORS = {
   walletSummaryTransparent: black,
 
   // Wallet Address
-  wallevAddressBg: white,
-  wallevAddressBorder: alto,
-  wallevAddressInput: doveGray,
-  wallevAddressInputHovered: black,
-  wallevAddressTooltip: white,
-  wallevAddressTooltipBg: black,
+  walletAddressBg: white,
+  walletAddressBorder: alto,
+  walletAddressInput: doveGray,
+  walletAddressInputHovered: black,
+  walletAddressTooltip: white,
+  walletAddressTooltipBg: black,
 
   // Console
   consoleBg: white,

@@ -15,6 +15,7 @@ import { InputLabelComponent } from '../components/input-label';
 import { InputComponent } from '../components/input';
 import { TextComponent } from '../components/text';
 import { SelectComponent } from '../components/select';
+import { SelectSendComponent } from '../components/select-send';
 import { RowComponent } from '../components/row';
 import { ColumnComponent } from '../components/column';
 import { Divider } from '../components/divider';
@@ -301,7 +302,7 @@ const MemoValidationText = styled(TextComponent)`
 `;
 
 const SimpleTooltip = styled.div`
-  background: ${props => props.theme.colors.wallevAddressTooltipBg};
+  background: ${props => props.theme.colors.walletAddressTooltipBg};
   position: absolute;
   top: -24px;
   left: 0;
@@ -311,7 +312,7 @@ const SimpleTooltip = styled.div`
 `;
 
 const TooltipText = styled(TextComponent)`
-  color: ${props => props.theme.colors.wallevAddressTooltip};
+  color: ${props => props.theme.colors.walletAddressTooltip};
   font-size: 10px;
   font-weight: 700;
   text-align: center;
@@ -635,6 +636,7 @@ class Component extends PureComponent<Props, State> {
       );
     }
 
+    console.log(JSON.stringify(operationId))
     if (operationId) {
       return (
         <ZSuccessWrapper id='send-success-wrapper'>
@@ -803,7 +805,7 @@ class Component extends PureComponent<Props, State> {
           <SelectComponent
             onChange={this.handleChange('from')}
             value={from}
-            placeholder='Select a address'
+            placeholder='Select an address'
             options={addresses.map(({ address, balance: addressBalance }) => ({
               label: `[ ${formatNumber({
                 append: `${coinName} `,
@@ -833,6 +835,21 @@ class Component extends PureComponent<Props, State> {
               name='amount'
             />
           </AmountWrapper>
+          <Label value='To (Local addresses)' />
+          <SelectSendComponent
+            onChange={this.handleChange('to')}
+            value={to}
+            placeholder='Select an address'
+            options={addresses.map(({ address, balance: addressBalance }) => ({
+              label: `[ ${formatNumber({
+                append: `${coinName} `,
+                value: addressBalance,
+              })} ]  ${address}`,
+              value: address,
+            }))}
+            capitalize={false}
+          />
+          <Label value='Amount' />
           <Label value='To' />
           <InputComponent
             onChange={this.handleChange('to')}

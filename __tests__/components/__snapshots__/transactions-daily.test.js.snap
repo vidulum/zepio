@@ -58,7 +58,7 @@ exports[`<TransactionDailyComponent /> render() should render user daily transac
           <p
             class="sc-htpNat dztgbW"
           >
-            +TAZ 1.789
+            +VDLT 1.789
           </p>
           <p
             class="sc-kgoBCf goviHQ sc-htpNat pRhzD"
@@ -111,7 +111,7 @@ exports[`<TransactionDailyComponent /> render() should render user daily transac
           <p
             class="sc-htpNat jAbxuE"
           >
-            -TAZ 0.846
+            -VDLT 0.846
           </p>
           <p
             class="sc-kgoBCf goviHQ sc-htpNat pRhzD"

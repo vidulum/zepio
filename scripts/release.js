@@ -16,8 +16,8 @@ import packageJson from '../package';
 const DIST_FOLDER = path.join(__dirname, '..', './dist');
 const VERSION = packageJson.version;
 const GH_TOKEN = process.env.GH_TOKEN;
-const OWNER = 'Vidulum';
-const PROJECT = 'VITA';
+const OWNER = 'Vidulum LLC';
+const PROJECT = 'Vidulum Desktop Wallet';
 
 const octokit = new Octokit({ auth: GH_TOKEN });
 
@@ -38,15 +38,15 @@ const getFileName = (name) => {
 
   switch (extension) {
     case 'dmg':
-      return `Vita-macOS-v${VERSION}.dmg`;
+      return `Vidulum-Desktop-Wallet-macOS-v${VERSION}.dmg`;
     case 'deb':
-      return `vita-linux-v${VERSION}.deb`;
+      return `Vidulum-Desktop-Wallet-linux-v${VERSION}.deb`;
     case 'exe':
-      return `Vita-Windows-v${VERSION}.exe`;
+      return `Vidulum-Desktop-Wallet-Windows-v${VERSION}.exe`;
     case 'zip':
       return `signatures-v${VERSION}.zip`;
     default:
-      return 'Vita';
+      return 'Vidulum Desktop Wallet';
   }
 };
 

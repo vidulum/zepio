@@ -10,7 +10,7 @@ import { FETCH_STATE } from '../constants/fetch-states';
 import { InputLabelComponent } from '../components/input-label';
 import { RowComponent } from '../components/row';
 import { TextComponent } from '../components/text';
-import { WallevAddress } from '../components/wallet-address';
+import { WalletAddress } from '../components/wallet-address';
 import { LoaderComponent } from '../components/loader';
 
 import MenuIconDark from '../assets/images/menu_icon_dark.svg';
@@ -156,7 +156,7 @@ class Component extends PureComponent<Props, State> {
       <div id='receive-wrapper'>
         <ShieldedLabel value='Shielded Address' id='shielded-address-label' />
         {shieldedAddresses.map(({ address, balance }) => (
-          <WallevAddress key={address} address={address} balance={balance} />
+          <WalletAddress key={address} address={address} balance={balance} />
         ))}
         <Row justifyContent='space-between'>
           <ActionButton
@@ -201,7 +201,7 @@ class Component extends PureComponent<Props, State> {
                   <Label value='Transparent Address (not private)' />
                   <SubLabel value={TRANSPARENT_ADDRESS_SUBLABEL} />
                   {transparentAddresses.map(({ address, balance }) => (
-                    <WallevAddress key={address} address={address} balance={balance} />
+                    <WalletAddress key={address} address={address} balance={balance} />
                   ))}
                   <ActionButton
                     id='receive-get-net-transparent'

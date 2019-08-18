@@ -1,5 +1,6 @@
 node_modules
 .vscode
+.vs
 dist
 .DS_Store
 flow-coverage
@@ -8,3 +9,5 @@ build
 coverage
 flow-typed
 .env
+yarn-error.log
+yarn.lock

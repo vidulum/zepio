@@ -2,8 +2,8 @@
 import { css } from 'docz-plugin-css';
 
 export default {
-  title: 'Vita Components',
-  description: 'Vita Component Library',
+  title: 'Vidulum Desktop Wallet Components',
+  description: 'Vidulum Desktop Wallet Component Library',
   plugins: [css()],
   htmlContext: {
     head: {

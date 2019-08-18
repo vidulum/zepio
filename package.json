@@ -1,22 +1,22 @@
 {
-  "name": "VITA",
-  "productName": "VITA",
-  "version": "0.1.0",
-  "description": "VITA | Cross-platform sapling-enabled full-node Vidulum wallet",
+  "name": "vidulum",
+  "productName": "Vidulum",
+  "version": "2.0.1",
+  "description": "Vidulum Desktop | Cross-platform sapling-enabled full-node Vidulum Desktop Wallet",
   "main": "config/main.js",
   "homepage": "https://vidulum.app",
   "license": "MIT",
   "author": {
-    "name": "NERDiT",
-    "email": "nerdit@vidulum.org",
+    "name": "NERDiT Sas CoreyM",
+    "email": "contact@vidulum.org",
     "url": "https://vidulum.app"
   },
   "bugs": {
-    "url": "https://github.com/vidulum/zepio/issues"
+    "url": "https://github.com/vidulum/DesktopWallet/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vidulum/zepio"
+    "url": "git+https://github.com/vidulum/DesktopWallet"
   },
   "scripts": {
     "start": "yarn check --integrity && concurrently \"cross-env BROWSER=none yarn dev\" \"wait-on http://0.0.0.0:8080 && yarn electron:dev\"",
@@ -53,7 +53,7 @@
   },
   "build": {
     "appId": "app.vidulum",
-    "productName": "VITA",
+    "productName": "Vidulum",
     "asar": true,
     "directories": {
       "buildResources": "build",
@@ -217,6 +217,7 @@
     "@babel/polyfill": "^7.0.0",
     "@babel/register": "^7.0.0",
     "autoprefixer": "^9.3.1",
+    "babel-core": "7.0.0-bridge.0",
     "bignumber.js": "^8.0.1",
     "connected-react-router": "^5.0.1",
     "copy-to-clipboard": "^3.0.8",
@@ -248,8 +249,10 @@
     "react-virtualized": "^9.21.0",
     "redux": "^4.0.1",
     "redux-thunk": "^2.2.0",
+    "request": "2.79.0",
     "styled-components": "^4.1.1",
     "styled-theming": "^2.2.0",
+    "typescript": "^3.5.3",
     "uuid": "^3.3.2"
   }
 }

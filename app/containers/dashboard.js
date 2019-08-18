@@ -11,7 +11,7 @@ import { DashboardView } from '../views/dashboard';
 
 import rpc from '../../services/api';
 import store from '../../config/electron-store';
-import { SAPLING, MIN_CONFIRMATIONS_NUMBER } from '../constants/vidulum-network';
+import { SAPLING, SPROUT, MIN_CONFIRMATIONS_NUMBER } from '../constants/vidulum-network';
 import { NODE_SYNC_TYPES } from '../constants/node-sync-types';
 import { listShieldedTransactions } from '../../services/shielded-transactions';
 import { sortByDescend } from '../utils/sort-by-descend';
@@ -29,6 +29,8 @@ import type { Dispatch, FetchState } from '../types/redux';
 export type MapStateToProps = {|
   total: number,
   shielded: number,
+  generated: number,
+  immature: number,
   transparent: number,
   unconfirmed: number,
   error: null | string,
@@ -40,9 +42,11 @@ export type MapStateToProps = {|
 |};
 
 const mapStateToProps: AppState => MapStateToProps = ({ walletSummary, app }) => ({
-  total: walletSummary.total,
-  shielded: walletSummary.shielded,
-  transparent: walletSummary.transparent,
+  total: Math.round(walletSummary.total * 1000) / 1000,
+  shielded: Math.round(walletSummary.shielded * 1000) / 1000,
+  immature: walletSummary.immature,
+  generated: walletSummary.generated,
+  transparent: Math.round(walletSummary.transparent * 1000) / 1000,
   unconfirmed: walletSummary.unconfirmed,
   error: walletSummary.error,
   fetchState: walletSummary.fetchState,
@@ -65,8 +69,25 @@ const mapDispatchToProps: (dispatch: Dispatch) => MapDispatchToProps = (dispatch
     const [vAddressesErr, vAddresses = []] = await eres(rpc.getaddressesbyaccount(''));
     const [transactionsErr, transactions] = await eres(rpc.listtransactions());
     const [unconfirmedBalanceErr, unconfirmedBalance] = await eres(rpc.getunconfirmedbalance());
+    const [walletInfoDataErr, walletInfo] = await eres(rpc.getwalletinfo());
 
-    if (walletErr || zAddressesErr || vAddressesErr || transactionsErr || unconfirmedBalanceErr) {
+    await fetch("https://api.coingecko.com/api/v3/simple/price?ids=vidulum&vs_currencies=usd")
+    .then(res => res.json())
+    .then(
+      (result) => {
+        store.set('VDL_DOLLAR_PRICE', String(result.vidulum.usd));
+      },
+      // Note: it's important to handle errors here
+      // instead of a catch() block so that we don't swallow
+      // exceptions from actual bugs in components.
+      (error) => {
+        store.set('VDL_DOLLAR_PRICE', '0');
+      }
+    )
+
+
+    if (walletErr || zAddressesErr || vAddressesErr || transactionsErr
+      || unconfirmedBalanceErr || walletInfoDataErr) {
       return dispatch(
         loadWalletSummaryError({
           error: 'Something went wrong!',
@@ -94,8 +115,24 @@ const mapDispatchToProps: (dispatch: Dispatch) => MapDispatchToProps = (dispatch
       sortByDescend('jsDay'),
     ])([...transactions, ...listShieldedTransactions()]);
 
+    //check for generated
+    let generatedAmount = 0;
+    transactions.map((transaction) => {
+      if(transaction.generated) {
+        generatedAmount += Math.abs(transaction.amount);
+      }
+    });
+    walletSummary.generated = Math.round(generatedAmount * 1000) / 1000;
+
     if (!zAddresses.length) {
-      const [, newZAddress] = await eres(rpc.z_getnewaddress(SAPLING));
+      const [blockHeightErr, blockHeight] = await eres(rpc.getblockcount());
+      let newZAddress;
+      if (blockHeight < 430000) { // TODO: don't use sapling until sapling is activated
+        [, newZAddress] = await eres(rpc.z_getnewaddress(SPROUT));
+      } else {
+        [, newZAddress] = await eres(rpc.z_getnewaddress(SAPLING));
+      }
+
 
       if (newZAddress) zAddresses.push(newZAddress);
     }
@@ -105,12 +142,14 @@ const mapDispatchToProps: (dispatch: Dispatch) => MapDispatchToProps = (dispatch
 
       if (newTAddress) vAddresses.push(newTAddress);
     }
-
+    walletSummary.immature = walletInfo.immature_balance;
     dispatch(
       loadWalletSummarySuccess({
         transparent: walletSummary.transparent,
+        immature: walletSummary.immature,
         total: walletSummary.total,
         shielded: walletSummary.private,
+        generated: walletSummary.generated,
         unconfirmed: unconfirmedBalance,
         addresses: [...zAddresses, ...vAddresses],
         transactions: formattedTransactions,

@@ -4,7 +4,7 @@ import { openExternal } from './utils/open-external';
 import packageJson from '../package.json';
 
 const DOCS_URL = 'https://vidulum.app/';
-const REPOSITORY_URL = 'https://github.com/vidulum/zepio/issues/';
+const REPOSITORY_URL = 'https://github.com/vidulum/zepio/';
 
 const menu = [
   {
@@ -32,7 +32,7 @@ const helpMenu = {
   role: 'help',
   submenu: [
     {
-      label: `Vita Version v${packageJson.version}`,
+      label: `Vidulum Desktop Wallet Version v${packageJson.version}`,
       enabled: false,
     },
     { type: 'separator' },

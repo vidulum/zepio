@@ -5,7 +5,7 @@ const FONT_FAMILY = 'Roboto';
 export const typography = {
   fontFamily: FONT_FAMILY,
   fontWeight: {
-    bold: 700,
+    bold: 500,
     default: 400,
     light: 300,
   },

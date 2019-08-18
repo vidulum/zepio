@@ -3,5 +3,6 @@
 import { isTestnet } from '../../config/is-testnet';
 
 export const VIDULUM_EXPLORER_BASE_URL = isTestnet()
-  ? 'https://exp.vidulum.app/tx/'
-  : 'https://exp.vidulum.app/tx/';
+    ? 'https://vdlt-explorer.vidulum.app/tx/'
+    : 'https://explorer.vidulum.app/tx/';
+

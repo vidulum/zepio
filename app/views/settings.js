@@ -13,6 +13,7 @@ import eres from 'eres';
 
 import { Button } from '../components/button';
 import { ConfirmDialogComponent } from '../components/confirm-dialog';
+// import { MasternodeDialogComponent } from '../components/mn-settings-dialog';
 import { TextComponent } from '../components/text';
 import { InputComponent } from '../components/input';
 import { InputLabelComponent } from '../components/input-label';
@@ -28,9 +29,20 @@ import { isTestnet } from '../../config/is-testnet';
 
 import type { MapDispatchToProps, MapStateToProps } from '../containers/settings';
 
+const MN_IP = 'Masternode IP Address';
+const MN_ALIAS = 'Masternode Alias';
+const MN_OUTPUTS = 'Masternode Outputs';
+const MN_KEY = 'Masternode Key';
+const SETUP_MASTERNODE_SUCCESS_CONTENT = 'RESTART REQUIRED: Successfully added masternode to file.'
+
 const EXPORT_VIEW_KEYS_TITLE = 'Export View Keys';
+const SETUP_MASTERNODE_TITLE = 'Setup Masternode';
+const SETUP_MASTERNODE_CONTENT = 'Configure a vidulum masternode';
+const GET_MN_OUTPUTS_TX = 'this would be the long ass tx outputs string';
+const CREATE_MN_PRIV_KEY_TITLE = 'Masternode Private Key';
+const CREATE_MN_PRIV_KEY_CONTENT = 'Retrieve the Private Key for your Masternode.';
 const EXPORT_VIEW_KEYS_CONTENT = 'Viewing keys for shielded addresses allow for the disclosure of all transaction information to a preffered party. Anyone who holds these keys can see all shielded transaction details, but cannot spend coins as it is not a private key.';
-const EXPORT_VIEW_KEYS_LEARN_MORE = 'https://medium.com/vidulum/what-are-public-and-private-keys-8b568507d6c6';
+const EXPORT_VIEW_KEYS_LEARN_MORE = 'https://z.cash/blog/viewing-keys-selective-disclosure';
 const IMPORT_PRIV_KEYS_TITLE = 'Import Private Keys';
 const IMPORT_PRIV_KEYS_CONTENT = 'Importing private keys will add the spendable coins to this wallet.';
 const IMPORT_PRIV_KEYS_CONTENT_MODAL = 'Paste your private keys here, one per line. These spending keys will be imported into your wallet.';
@@ -196,10 +208,19 @@ type Props = MapDispatchToProps & MapStateToProps;
 type State = {
   viewKeys: Key[],
   privateKeys: Key[],
+  mnOutputs: Key[],
+  mnOutputValue: string,
+  mnPrivateKey: string,
+  mnIpAddress: string,
+  mnAlias: string,
   importedPrivateKeys: string,
   successExportViewKeys: boolean,
   successExportPrivateKeys: boolean,
   successImportPrivateKeys: boolean,
+  successMNsetup: boolean,
+  successGetMasterNodeKey: string,
+  successGetMasterOutputs: string,
+  masterNodeKey: string,
   isLoading: boolean,
   error: string | null,
 };
@@ -207,11 +228,21 @@ type State = {
 const initialState = {
   viewKeys: [],
   privateKeys: [],
+  mnOutputs: [],
+  mnOutputValue: '',
+  mnPrivateKey: '',
+  mnIpAddress: '',
+  mnAlias: '',
   importedPrivateKeys: '',
   isLoading: false,
   successExportViewKeys: false,
   successExportPrivateKeys: false,
   successImportPrivateKeys: false,
+  successMNsetup: false,
+  successGetMasterNodeKey: false,
+  successGetMasterOutputs: false,
+  masterNodeKey: '',
+
   error: null,
 };
 
@@ -242,6 +273,18 @@ export class SettingsView extends PureComponent<Props, State> {
     return path.join(app.getPath('appData'), 'Vidulum');
   };
 
+  getMasterNodeKey = async () => {
+    this.setState({ isLoading: true });
+    const [err, result] = await eres(Promise.all([rpc.createmasternodekey()]));
+    this.setState({
+      // $FlowFixMe
+      masterNodeKey: result,
+      mnPrivateKey: result,
+      successGetMasterNodeKey: true,
+      isLoading: false,
+    });
+  };
+
   exportViewKeys = () => {
     const { addresses } = this.props;
 
@@ -261,6 +304,50 @@ export class SettingsView extends PureComponent<Props, State> {
         isLoading: false,
       });
     });
+  };
+
+  getMnOutputs = async () => {
+    this.setState({ isLoading: true, error: null });
+
+    const [err, result] = await eres(rpc.getmasternodeoutputs());
+
+    this.setState({
+      mnOutputs: result,
+      successGetMnOutputs: true,
+      isLoading: false,
+    });
+  };
+
+  updateMasternodeConfig = () => {
+    const { mnOutputValue, mnIpAddress, mnPrivateKey, mnAlias, error } = this.state;
+    let err = false;
+
+    if(!mnOutputValue || !mnIpAddress || !mnPrivateKey || !mnAlias){return this.setState({error: 'Complete all inputs'})}
+    let mnIPaddr = mnIpAddress;
+    if(!mnIPaddr.includes(':7676')){
+      mnIPaddr = mnIPaddr + ':7676';
+    }
+    
+    const mnLine = (mnAlias + ' ' + 
+                      mnIPaddr + ' ' + 
+                      mnPrivateKey + ' ' +
+                      mnOutputValue)
+    
+    fs.appendFile(path.join(this.getWalletFolderPath(), 'masternode.conf'), mnLine, function (err) {
+      if (err) throw err;
+      console.log('masternode.conf Saved!');
+    });
+
+    if(err){
+      this.setState({
+        error: err,
+      })
+    }else{
+      this.setState({
+        successMNsetup: true,
+      })
+    }
+    
   };
 
   exportPrivateKeys = async () => {
@@ -355,9 +442,18 @@ export class SettingsView extends PureComponent<Props, State> {
       viewKeys,
       privateKeys,
       importedPrivateKeys,
+      mnOutputs,
+      mnOutputValue,
+      mnPrivateKey,
+      mnIpAddress,
+      mnAlias,
       successExportViewKeys,
       successExportPrivateKeys,
       successImportPrivateKeys,
+      successGetMnOutputs,
+      successGetMasterNodeKey,
+      successMNsetup,
+	    masterNodeKey,
       isLoading,
       error,
     } = this.state;
@@ -408,8 +504,7 @@ export class SettingsView extends PureComponent<Props, State> {
             options={themeOptions}
           />
         </ThemeSelectWrapper>
-        {/* Hidden due to Sapling inability to export view keys on sapling addresses yet */}
-        {/* <ConfirmDialogComponent
+        {/*  <ConfirmDialogComponent
           title={EXPORT_VIEW_KEYS_TITLE}
           renderTrigger={toggleVisibility => (
             <SettingsWrapper>
@@ -450,8 +545,123 @@ export class SettingsView extends PureComponent<Props, State> {
               )}
             </ModalContent>
           )}
-        </ConfirmDialogComponent> */}
-
+        </ConfirmDialogComponent> Leave this here for when Sappling updates */}
+        <ConfirmDialogComponent
+          title={SETUP_MASTERNODE_TITLE}
+          renderTrigger={toggleVisibility => (
+            <SettingsWrapper>
+              <SettingsTitle value={SETUP_MASTERNODE_TITLE} />
+              <SettingsContent value={SETUP_MASTERNODE_CONTENT} />
+              <SettingsActionWrapper>
+                <Btn
+                  label={SETUP_MASTERNODE_TITLE}
+                  onClick={() => {
+                    this.getMnOutputs();
+                    // this.getMasterNodeKey();
+                    toggleVisibility();
+                  }}
+                />
+              </SettingsActionWrapper>
+            </SettingsWrapper>
+          )}
+          showButtons={!successMNsetup}
+          width={550}
+          onConfirm={() => {
+            this.updateMasternodeConfig();
+          }}
+          onClose={this.resetState}
+        >
+          {() => (
+            <ModalContent>
+              <InputLabelComponent value={MN_ALIAS} />
+              <InputComponent
+                value={mnAlias}
+                placeholder='mn1'
+                onChange={value => this.setState({ mnAlias: value })}
+                inputType='input'
+                rows={1}
+              />
+              <InputLabelComponent value={MN_IP} />
+              <InputComponent
+                value={mnIpAddress}
+                placeholder='127.0.0.1'
+                onChange={value => this.setState({ mnIpAddress: value })}
+                inputType='input'
+                rows={1}
+              />
+              <InputLabelComponent value={MN_OUTPUTS} />
+              <SelectComponent
+                value={mnOutputValue}
+                onChange={value => this.setState({ mnOutputValue: value })}
+                placeholder='Select MN Output'
+                options={mnOutputs.map(({ txhash, outputidx }) => ({
+                  label: `${txhash}`,
+                  value:  `${txhash} ${outputidx}`,
+                }))}
+                capitalize={false}
+              />
+              <InputLabelComponent value={MN_KEY} />
+              <InputComponent
+                value={mnPrivateKey}
+                onChange={value => this.setState({ mnPrivateKey: value })}
+                inputType='input'
+                rows={1}
+              />
+             <StatusWrapper>
+            {successMNsetup && (
+              <StatusTextSuccess value={SETUP_MASTERNODE_SUCCESS_CONTENT} />
+              )}
+              {error && <StatusTextError value={error} align='center' />}
+            </StatusWrapper>
+          </ModalContent>
+          )}
+        </ConfirmDialogComponent>
+        {/* End MN outputs */}
+        <ConfirmDialogComponent
+          title={CREATE_MN_PRIV_KEY_TITLE}
+          renderTrigger={toggleVisibility => (
+            <SettingsWrapper>
+              <SettingsTitle value={CREATE_MN_PRIV_KEY_TITLE} />
+              <SettingsContent value={CREATE_MN_PRIV_KEY_CONTENT} />
+              <SettingsActionWrapper>
+                <Btn
+                  label={CREATE_MN_PRIV_KEY_TITLE}
+                  onClick={() => {
+                    this.getMasterNodeKey();
+                    toggleVisibility();
+                  }}
+                />
+              </SettingsActionWrapper>
+            </SettingsWrapper>
+          )}
+          showButtons={!successGetMasterNodeKey}
+          width={550}
+          onClose={this.resetState}
+        >
+          {() => (
+            <ModalContent>
+              {successGetMasterNodeKey ? (
+                <div>
+                  <ViewKeyHeader>
+                    {' '}
+                    {/* this is how add list */}
+                    <ViewKeyLabel value='Masternode Private Key' />
+                  </ViewKeyHeader>
+                  <ViewKeyContentWrapper>
+                    <ViewKeyInputComponent
+                      value={masterNodeKey}
+                      onFocus={event => event.currentTarget.select()}
+                    />
+                    <ClipboardButton text={masterNodeKey} />
+                  </ViewKeyContentWrapper>
+                </div>
+              ) : (
+                <TextComponent value={CREATE_MN_PRIV_KEY_CONTENT} />
+              )}
+            </ModalContent>
+          )}
+        </ConfirmDialogComponent>
+        {/* end mn priv key */}
         <SettingsWrapper>
           <ConfirmDialogComponent
             title={EXPORT_PRIV_KEYS_TITLE}
@@ -494,6 +704,7 @@ export class SettingsView extends PureComponent<Props, State> {
               </ModalContent>
             )}
           </ConfirmDialogComponent>
+
           <ConfirmDialogComponent
             title={IMPORT_PRIV_KEYS_TITLE}
             renderTrigger={toggleVisibility => (

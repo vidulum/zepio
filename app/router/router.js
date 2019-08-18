@@ -11,8 +11,10 @@ import { SidebarContainer } from '../containers/sidebar';
 import { DashboardContainer } from '../containers/dashboard';
 import { TransactionsContainer } from '../containers/transactions';
 import { SendContainer } from '../containers/send';
+import { ShieldContainer } from '../containers/shield';
 import { ReceiveContainer } from '../containers/receive';
 import { SettingsContainer } from '../containers/settings';
+import { MasternodesContainer } from '../containers/masternodes';
 import { NotFoundView } from '../views/not-found';
 import { ConsoleView } from '../views/console';
 import { AppContainer as LayoutComponent } from '../containers/app';
@@ -21,10 +23,12 @@ import { HeaderComponent } from '../components/header';
 import {
   DASHBOARD_ROUTE,
   SEND_ROUTE,
+  SHIELD_ROUTE,
   RECEIVE_ROUTE,
   SETTINGS_ROUTE,
   CONSOLE_ROUTE,
   TRANSACTIONS_ROUTE,
+  MASTERNODES_ROUTE,
 } from '../constants/routes';
 
 const FullWrapper = styled.div`
@@ -61,10 +65,12 @@ export const RouterComponent = ({
           <Switch>
             <Route exact path={DASHBOARD_ROUTE} component={DashboardContainer} />
             <Route path={`${SEND_ROUTE}/:to?`} component={SendContainer} />
+            <Route path={`${SHIELD_ROUTE}/:to?`} component={ShieldContainer} />
             <Route path={RECEIVE_ROUTE} component={ReceiveContainer} />
             <Route path={SETTINGS_ROUTE} component={SettingsContainer} />
             <Route path={CONSOLE_ROUTE} component={ConsoleView} />
             <Route path={TRANSACTIONS_ROUTE} component={TransactionsContainer} />
+            <Route path={MASTERNODES_ROUTE} component={MasternodesContainer} />
             <Route component={NotFoundView} />
           </Switch>
         </ScrollTopComponent>

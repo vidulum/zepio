@@ -15,13 +15,13 @@ describe('Startup', () => {
   test('should open the window', () => expect(app.client.getWindowCount()).resolves.toEqual(1));
 
   test('should have the right title', () => {
-    expect(app.client.getTitle()).resolves.toEqual('Vita');
+    expect(app.client.getTitle()).resolves.toEqual('Vidulum Desktop Wallet');
   });
 
-  test('should show the text "Vita Starting" in loading screen', async () => {
+  test('should show the text "Vidulum Desktop Starting" in loading screen', async () => {
     expect(
       app.client.element('div[data-testid~="LoadingScreen"]:first-child p').getHTML(),
-    ).resolves.toEqual(expect.stringContaining('Vita Starting'));
+    ).resolves.toEqual(expect.stringContaining('Vidulum Desktop Starting'));
   });
 
   test('should show the vidulum logo in loading screen', () => expect(

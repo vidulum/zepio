@@ -87,6 +87,7 @@ export class DashboardView extends PureComponent<Props> {
     const {
       total,
       shielded,
+      immature,
       transparent,
       unconfirmed,
       vdlPrice,
@@ -104,6 +105,7 @@ export class DashboardView extends PureComponent<Props> {
         <WalletSummaryComponent
           total={total}
           shielded={shielded}
+          immature={immature}
           transparent={transparent}
           unconfirmed={unconfirmed}
           vdlPrice={vdlPrice}
@@ -123,7 +125,7 @@ export class DashboardView extends PureComponent<Props> {
         )}
         {electron.remote.process.env.NODE_ENV !== 'test' && (
           <ConfirmDialogComponent
-            title='Welcome to Vita'
+            title='Welcome to the Vidulum Desktop Wallet'
             onConfirm={(toggle) => {
               store.set(DISPLAY_WELCOME_MODAL, false);
               toggle();
@@ -136,11 +138,12 @@ export class DashboardView extends PureComponent<Props> {
             {() => (
               <ModalContent>
                 <ContentWrapper>
-                  <LogoComponent src={vitaLogo} alt='Vita' />
-                  <TitleComponent value='Hello from Vita' isBold />
-                  <WelcomeText value='Vita is a cross-platform full-node Vidulum wallet that allows users to easily send and receive VDL. With first-class support for Sapling shielded addresses, users are able to create truly private transactions using a modern and intuitive interface.' />
-                  <WelcomeText value='Vita aims to improve the user experience for those seeking true financial privacy online.' />
-                  <AdditionalText value='Vita will need to sync the Vidulum blockchain data before using all features.' />
+                  <LogoComponent src={vitaLogo} alt='Vidulum' />
+                  <TitleComponent value='Hello from the Vidulum Team' isBold />
+                  <WelcomeText value='Vidulum Desktop is a cross-platform full-node Vidulum wallet that allows users to easily send and receive VDL. With first-class support for Sapling shielded addresses, users are able to create truly private transactions using a modern and intuitive interface.' />
+                  <WelcomeText value='Vidulum aims to improve the user experience for those seeking true financial privacy online.' />
+                  <AdditionalText value='Vidulum Desktop will need to sync the Vidulum blockchain data before using all features.' />
+                  <AdditionalText value='Special thanks to the Zcash Foundation for putting this software in the open source.' />
                 </ContentWrapper>
               </ModalContent>
             )}

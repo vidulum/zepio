@@ -117,6 +117,7 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => ({
       const operationStatus = status.find(({ id }) => operationId === id);
 
       if (operationStatus && operationStatus.status === 'success') {
+        rpc.getnewaddress();
         clearInterval(interval);
         if (from.startsWith('z')) {
           saveShieldedTransaction({
@@ -208,10 +209,10 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => ({
   },
   loadVDLPrice: () => dispatch(
     loadVDLPrice({
-      value: Number(store.get('VDL_DOLLAR_PRICE')),
+      value: new BigNumber(store.get('VDL_DOLLAR_PRICE')).toNumber(),
     }),
   ),
-  gevAddressBalance: async ({ address }: { address: string }) => {
+  getAddressBalance: async ({ address }: { address: string }) => {
     const [err, balance] = await eres(rpc.z_getbalance(address));
 
     if (err) return dispatch(loadAddressBalanceError({ error: "Can't load your balance address" }));

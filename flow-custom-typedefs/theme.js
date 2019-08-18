@@ -96,12 +96,12 @@ type Colors = {
   walletSummaryBorder: ThemeSet,
 
   // Wallet Address
-  wallevAddressBg: ThemeSet,
-  wallevAddressBorder: ThemeSet,
-  wallevAddressInput: ThemeSet,
-  wallevAddressInputHovered: ThemeSet,
-  wallevAddressTooltip: ThemeSet,
-  wallevAddressTooltipBg: ThemeSet,
+  walletAddressBg: ThemeSet,
+  walletAddressBorder: ThemeSet,
+  walletAddressInput: ThemeSet,
+  walletAddressInputHovered: ThemeSet,
+  walletAddressTooltip: ThemeSet,
+  walletAddressTooltipBg: ThemeSet,
 
   // Console
   consoleBg: ThemeSet,

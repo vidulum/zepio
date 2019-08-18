@@ -18,6 +18,8 @@ export const loadWalletSummary: () => Action = () => ({
 export const loadWalletSummarySuccess = ({
   total,
   shielded,
+  generated,
+  immature,
   transparent,
   unconfirmed,
   addresses,
@@ -26,6 +28,8 @@ export const loadWalletSummarySuccess = ({
 }: {
   total: number,
   shielded: number,
+  generated: Number,
+  immature:number,
   transparent: number,
   unconfirmed: number,
   addresses: string[],
@@ -36,6 +40,8 @@ export const loadWalletSummarySuccess = ({
   payload: {
     total,
     shielded,
+    generated,
+    immature,
     transparent,
     unconfirmed,
     addresses,
@@ -52,6 +58,8 @@ export const loadWalletSummaryError = ({ error }: { error: string }) => ({
 export type State = {
   total: number,
   shielded: number,
+  generated: number,
+  immature:number,
   transparent: number,
   unconfirmed: number,
   error: string | null,
@@ -64,6 +72,8 @@ export type State = {
 const initialState = {
   total: 0,
   shielded: 0,
+  generated: 0,
+  immature: 0,
   transparent: 0,
   unconfirmed: 0,
   error: null,

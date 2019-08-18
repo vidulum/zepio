@@ -3,6 +3,13 @@
 /* eslint-disable max-len */
 
 export const METHODS = [
+  'getmasternodecount',
+  'getmasternodeoutputs',
+  'createmasternodekey',
+  'getmasternodewinners',
+  'listmasternodes',
+  'startmasternode',
+  'startalias',
   'getbestblockhash',
   'getblock',
   'getblockchaininfo',
@@ -115,7 +122,59 @@ export const METHODS = [
   'z_shieldcoinbase',
 ];
 
+
+
 export type APIMethods = {
+  getmasternodecount: () => Promise<{
+    total: number,
+    statble: number,
+    obfcompat: number,
+    enabled: number,
+    inqueue: number,
+    ipv4: number,
+    ipv6: number,
+    onion: number,
+  }>,
+  getmasternodeoutputs: () => Promise<{
+    txhash: string,
+    outputidx: 0
+  }[]>,
+  getmasternodewinners: () => Promise<{
+    nHeight: number,
+    winner: {
+      address: string,
+      nVotes: number,
+    }
+  }[]>,
+  listmasternodes: () => Promise<{
+    rank: number,
+    network: string,
+    ip: string,
+    txhash: string,
+    outidx: number,
+    status: string,
+    addr: string,
+    lastseen: number,
+    activetime: number,
+    lastpaid: number,
+    }[]>,
+  startmasternode: (set: string, lockWallet: boolean, alias?: string) => Promise<{
+    overall: string,
+    detail: {
+      alias: string,
+      result: string,
+      error: string,
+    }[],
+  }>,
+  startalias: (alias: string) => Promise<{
+    overall: string,
+    detail: {
+      alias: string,
+      result: string,
+      error: string,
+    }[],
+  }>,
+  createmasternodekey: () => Promise<string>,
   getbestblockhash: () => Promise<string>,
   getblock: (
     hash: string,
@@ -818,8 +877,8 @@ export type APIMethods = {
   z_shieldcoinbase: (
     fromaddress: string,
     toaddress: string,
-    fee?: number,
-    limit?: number,
+    fee: number,
+    limit: number,
   ) => Promise<{
     remainingUTXOs: number,
     remainingValue: number,

@@ -7,7 +7,11 @@ import { Transition, animated } from 'react-spring';
 import CircleProgressComponent from 'react-circle';
 import { TextComponent } from './text';
 
+import { jokes } from './loading-jokes';
+
 import vidulumLogo from '../assets/images/vidulum-simple-icon.svg';
+
+let joke = "Loading jokes to laugh at while this does it's thing";
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -48,6 +52,7 @@ const Logo = styled.img`
 `;
 
 const LoadingText = styled(TextComponent)`
+  padding-bottom: 15px;
   color: ${props => props.theme.colors.loadingScreenText};
 `;
 
@@ -60,6 +65,14 @@ type Props = {
 type State = {
   start: boolean,
 };
+
+setInterval(() => {
+  const ran = Math.round(Math.random() * jokes.length);
+  joke = jokes[ran];
+  if (joke === undefined) {
+    joke = 'How does a tree get on the computer? It Logs on!';
+  }
+}, 1000 * 15);
 
 const TIME_DELAY_ANIM = 100;
 
@@ -113,6 +126,7 @@ class Component extends PureComponent<Props, State> {
                   />
                 </CircleWrapper>
                 <LoadingText value={message} />
+                <LoadingText value={`${joke}`} />
               </LoadingCard>
             </animated.div>
           )}

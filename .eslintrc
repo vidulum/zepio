@@ -17,6 +17,7 @@
     "jsx-quotes": ["error", "prefer-single"],
     "import/prefer-default-export": ["off"],
     "import/no-default-export": 1,
+    "import/no-cycle": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js"] }],
     "jsx-a11y/anchor-is-valid": [
       "error",
@@ -45,5 +46,5 @@
       }
     ],
     "consistent-return": 0
-  }
+  },
 }

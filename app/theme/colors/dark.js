@@ -23,11 +23,11 @@ const woodsmoke = '#222222';
 const heavyMetal = '#0A0A0A';
 
 // Colors
-const saffron = '#F4B728';
-const brightSun = '#FFE240';
-const offBrand = 'rgba(238,201,76,0.65)';
+const saffron = '#36bbe0';
+const brightSun = '#3054bc';
+const offBrand = 'rgba(48,84,188,0.65)';
 const error = '#FF6C6C';
-const success = '#6AEAC0';
+const success = '#51d1f5';
 
 // Misc
 const transparent = 'transparent';
@@ -67,11 +67,11 @@ export const DARK_COLORS = {
   sendCardBorder: transparent,
 
   // Buttons
-  buttonPrimaryBg: saffron,
-  buttonPrimaryDisabledBg: saffron,
-  buttonPrimaryText: black,
+  buttonPrimaryBg: brightSun,
+  buttonPrimaryDisabledBg: brightSun,
+  buttonPrimaryText: gray,
   buttonSecondaryBg: gray,
-  buttonSecondaryDisabledBg: saffron,
+  buttonSecondaryDisabledBg: brightSun,
   buttonSecondaryText: black,
   buttonSecondaryBorder: gray,
   buttonSecondaryHoveredBg: silver,
@@ -94,6 +94,25 @@ export const DARK_COLORS = {
   transactionDetailsLabel: boulder,
   transactionLabelText: boulder,
   transactionLabelTextHovered: white,
+
+  // Masternode
+  masternodesEnable: success,
+  masternodesExpire: error,
+  masternodesVinSpent: error,
+  masternodesRemoved: error,
+  masternodesPosError: error,
+  masternodesItemHovered: woodsmoke,
+  masternodesItemBg: black,
+  masternodesItemHoverBg: heavyMetal,
+  masternodesItemOwnedBg: brightSun,
+  masternodesItemBorder: transparent,
+  masternodesLabelText: boulder,
+  masternodesLabelTextHovered: white,
+  masternodesPanelHeader: boulder,
+  masternodesSummaryBg: black,
+  masternodesSummaryBorder: black,
+  masternodesSummaryColumnBorder: woodsmoke,
+
 
   // Status Pill
   statusPillLabel: doveGray,
@@ -129,12 +148,12 @@ export const DARK_COLORS = {
   walletSummaryTransparent: white,
 
   // Wallet Address
-  wallevAddressBg: black,
-  wallevAddressBorder: black,
-  wallevAddressInput: friarGray,
-  wallevAddressInputHovered: white,
-  wallevAddressTooltip: black,
-  wallevAddressTooltipBg: white,
+  walletAddressBg: black,
+  walletAddressBorder: black,
+  walletAddressInput: friarGray,
+  walletAddressInputHovered: white,
+  walletAddressTooltip: black,
+  walletAddressTooltipBg: white,
 
   // Console
   consoleBg: black,
