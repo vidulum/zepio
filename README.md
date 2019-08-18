@@ -123,4 +123,5 @@ In order to contribute and submit PRs to improve the **Vidulum Desktop Wallet** 
 
 ## License
 
-MIT © Vidulum Foundation 2019 [zfnd.org](https://zfnd.org)
+MIT © ZCash Foundation 2019 [zfnd.org](https://zfnd.org)
+MIT Vidulum 2019 [vidulum.app](https://vidulum.app)
