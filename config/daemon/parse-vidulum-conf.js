@@ -46,12 +46,12 @@ export const parseVidulumConf = (customDir: ?string): Promise<VidulumConfFile> =
       fileString.split('\n').reduce((acc, cur) => {
         if (!cur) return acc;
 
-        const line = cur.trim();
+        const line = cur.trim() || '';
 
         if (line.startsWith('#')) return acc;
 
         const [key, value] = cur.split('=');
-        return { ...acc, [key.trim().toLowerCase()]: value.trim() };
+        return { ...acc, [key.trim().toLowerCase() || '']: value.trim() || '' };
       }, {}),
     );
 

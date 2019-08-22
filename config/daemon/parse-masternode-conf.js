@@ -28,7 +28,7 @@ export const parseMasternodeConf = (customDir: ?string): Promise<MasternodeConfF
       fileString.split('\n').reduce((acc, cur) => {
         if (!cur) return acc;
 
-        const line = cur.trim();
+        const line = cur.trim() || '';
 
         if (line.startsWith('#')) return acc;
 
@@ -43,7 +43,7 @@ export const parseMasternodeConf = (customDir: ?string): Promise<MasternodeConfF
             port,
             private_key,
             output_txid,
-            output_index: output_index.trim(),
+            output_index: output_index.trim() || '',
           },
         };
       }, {}),
