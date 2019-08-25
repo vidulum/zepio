@@ -423,12 +423,12 @@ type State = {
   isHexMemo: boolean,
   showBalanceTooltip: boolean,
   zAddresses: array[],
-  generated: number,
+  generated: array[],
 };
 
 const initialState: State = {
   showFee: false,
-  from: '*',
+  from: '',
   amount: '',
   to: '',
   feeType: FEES.LOW,
@@ -437,7 +437,7 @@ const initialState: State = {
   isHexMemo: false,
   showBalanceTooltip: false,
   zAddresses: [],
-  generated: 0,
+  generated: [],
 };
 
 class Component extends PureComponent<Props, State> {
@@ -492,16 +492,29 @@ class Component extends PureComponent<Props, State> {
 
   getGeneratedBalance = async () => {
     const [unspentErr, unspent] = await eres(rpc.listunspent());
+    let balances = {};
+
     // check for generated
     let generatedAmount = 0;
     unspent.map((transaction) => {
+      console.log(transaction)
       if (transaction.generated && transaction.confirmations > 100 && transaction.spendable) {
         generatedAmount += Math.abs(transaction.amount);
+        if(!balances[transaction.address]){
+          balances[transaction.address] = Math.abs(transaction.amount);
+        }else{
+          balances[transaction.address] += Math.abs(transaction.amount);
+        }
+        
       }
     });
-    const generated = Math.round(generatedAmount * 1000) / 1000;
+    const genarray = {
+      total: Math.round(generatedAmount * 1000) / 1000,
+      balByAddress: balances,
+    }
+    console.log(JSON.stringify(genarray))
     this.setState({
-      generated,
+      generated: genarray,
     });
   };
 
@@ -738,6 +751,7 @@ class Component extends PureComponent<Props, State> {
     return (
       !from
       || !to
+      || !from
       || !isToAddressValid
       || nodeSyncType !== NODE_SYNC_TYPES.READY
     );
@@ -750,6 +764,7 @@ class Component extends PureComponent<Props, State> {
 
   render() {
     const {
+      addresses,
       balance,
       vdlPrice,
       isSending,
@@ -763,6 +778,7 @@ class Component extends PureComponent<Props, State> {
       zAddresses,
       generated,
       amount,
+      from,
       to,
       showBalanceTooltip,
     } = this.state;
@@ -777,7 +793,7 @@ class Component extends PureComponent<Props, State> {
     const coinName = getCoinName();
 
     const vdlBalanceInUsd = formatNumber({
-      value: new BigNumber(generated).times(vdlPrice).toNumber(),
+      value: new BigNumber(generated.total).times(vdlPrice).toNumber(),
       append: 'USD $',
     });
     const valueSent = formatNumber({
@@ -792,6 +808,20 @@ class Component extends PureComponent<Props, State> {
     return (
       <RowComponent id='send-wrapper' justifyContent='space-between'>
         <FormWrapper>
+        <Label value='Shield coins from:' />
+          <SelectSendComponent
+            onChange={value => this.setState({ from: `${value}`})}
+            value={from}
+            placeholder='From Address'
+            options={generated.balByAddress.map(({ address, balance: addressBalance }) => ({
+              label: `[ ${formatNumber({
+                append: `${coinName} `,
+                value: addressBalance,
+              })} ]  ${address}`,
+              value: address,
+            }))}
+            capitalize={false}
+          />
           <Label value='Shield coins to:' />
           <SelectSendComponent
             onChange={this.handleChange('to')}
@@ -808,7 +838,7 @@ class Component extends PureComponent<Props, State> {
           <InfoCard>
             <InfoContent>
               <InfoCardLabel value='VDL Requiring Shielding' />
-              <TextComponent value={generated} size={2.25} isBold />
+              <TextComponent value={generated.total} size={2.25} isBold />
               <InfoCardUSD value={vdlBalanceInUsd} size={0.84375} />
             </InfoContent>
           </InfoCard>

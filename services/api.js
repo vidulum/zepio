@@ -37,10 +37,13 @@ const api: APIMethods = METHODS.reduce(
     ...obj,
     [method]: (...args) => {
       const RPC = getRPCConfig();
+      console.log(method)
+      console.log(args)
       console.info('[RPC CALL]', {
         method,
         payload: args,
       });
+      
       return got
         .post(`http://${RPC.host}:${RPC.port}`, {
           method: 'POST',

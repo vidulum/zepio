@@ -877,8 +877,8 @@ export type APIMethods = {
   z_shieldcoinbase: (
     fromaddress: string,
     toaddress: string,
-    fee: number,
-    limit: number,
+    fee?: number,
+    limit?: number,
   ) => Promise<{
     remainingUTXOs: number,
     remainingValue: number,
