@@ -117,7 +117,7 @@ type State = {
 
 class Component extends PureComponent<Props, State> {
   state = {
-    showAdditionalOptions: false,
+    showAdditionalOptions: true,
   };
 
   componentDidMount() {
