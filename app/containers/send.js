@@ -117,7 +117,7 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => ({
       const operationStatus = status.find(({ id }) => operationId === id);
 
       if (operationStatus && operationStatus.status === 'success') {
-        rpc.getnewaddress();
+        // rpc.getnewaddress();
         clearInterval(interval);
         if (from.startsWith('z')) {
           saveShieldedTransaction({

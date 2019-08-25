@@ -111,10 +111,12 @@ class Component extends PureComponent<Props, State> {
     if(METHODS.indexOf(cmdSplit[0]) >= 0){
       this.setState({ commandPreview: cmdSplit[0] });
       const cmd = cmdSplit[0];
-
+      // console.log(cmdSplit)
       if(cmdSplit.length > 1){
-        const params = cmdSplit.slice(1, cmdSplit.length).join(' ');
-        [err, result] = await eres(rpc[cmd](params));
+        // const params = ' ' + cmdSplit.slice(1, cmdSplit.length).join(' ');
+        let params = cmdSplit.slice(1, cmdSplit.length);
+        // console.log(params)
+        [err, result] = await eres(rpc[cmd](String(params)));
       }else{
         [err, result] = await eres(rpc[cmd]());
       }

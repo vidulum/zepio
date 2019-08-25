@@ -423,12 +423,13 @@ type State = {
   isHexMemo: boolean,
   showBalanceTooltip: boolean,
   zAddresses: array[],
-  generated: number,
+  genTotal: number,
+  genBalances: key[],
 };
 
 const initialState: State = {
   showFee: false,
-  from: '*',
+  from: '',
   amount: '',
   to: '',
   feeType: FEES.LOW,
@@ -437,7 +438,8 @@ const initialState: State = {
   isHexMemo: false,
   showBalanceTooltip: false,
   zAddresses: [],
-  generated: 0,
+  genTotal: 0,
+  genBalances: [],
 };
 
 class Component extends PureComponent<Props, State> {
@@ -480,8 +482,8 @@ class Component extends PureComponent<Props, State> {
     // TODO: Pre sapling activation
     let zAddrs = [];
     if (blockHeight < 430000) {
-      zAddrs = zAddresses.filter((address) => address.startsWith('zc'));
-    }else {
+      zAddrs = zAddresses.filter(address => address.startsWith('zc'));
+    } else {
       zAddrs = zAddresses;
     }
 
@@ -492,16 +494,30 @@ class Component extends PureComponent<Props, State> {
 
   getGeneratedBalance = async () => {
     const [unspentErr, unspent] = await eres(rpc.listunspent());
-    // check for generated
+    const genArray = [{ address: 'Shield All', balance: 0 }];
+    
     let generatedAmount = 0;
     unspent.map((transaction) => {
       if (transaction.generated && transaction.confirmations > 100 && transaction.spendable) {
         generatedAmount += Math.abs(transaction.amount);
+        let found = false;
+        for (let i = 0; i < genArray.length; i++) {
+          if (genArray[i].address === transaction.address) {
+            found = true;
+            genArray[i].balance += Math.abs(transaction.amount);
+            break;
+          }
+        }
+        if (!found) {
+          genArray.push({ address: transaction.address, balance: Math.abs(transaction.amount) });
+        }
       }
     });
-    const generated = Math.round(generatedAmount * 1000) / 1000;
+
+    genArray[0].balance = Math.round(generatedAmount * 1000) / 1000;
     this.setState({
-      generated,
+      genTotal: Math.round(generatedAmount * 1000) / 1000,
+      genBalances: genArray,
     });
   };
 
@@ -578,12 +594,20 @@ class Component extends PureComponent<Props, State> {
 
   handleSubmit = (toggle: void => void) => {
     const {
-      from, to,
+      to,
     } = this.state;
+
+    let {
+      from,
+    } = this.state;
+    
     const { shieldCoinbase, isToAddressValid } = this.props;
 
     if (!from || !to || !isToAddressValid) return;
 
+    if (from === 'Shield All') {
+      from = '*';
+    }
     shieldCoinbase({
       from,
       to,
@@ -738,6 +762,7 @@ class Component extends PureComponent<Props, State> {
     return (
       !from
       || !to
+      || !from
       || !isToAddressValid
       || nodeSyncType !== NODE_SYNC_TYPES.READY
     );
@@ -750,6 +775,7 @@ class Component extends PureComponent<Props, State> {
 
   render() {
     const {
+      addresses,
       balance,
       vdlPrice,
       isSending,
@@ -761,8 +787,10 @@ class Component extends PureComponent<Props, State> {
     } = this.props;
     const {
       zAddresses,
-      generated,
+      genTotal,
+      genBalances,
       amount,
+      from,
       to,
       showBalanceTooltip,
     } = this.state;
@@ -777,7 +805,7 @@ class Component extends PureComponent<Props, State> {
     const coinName = getCoinName();
 
     const vdlBalanceInUsd = formatNumber({
-      value: new BigNumber(generated).times(vdlPrice).toNumber(),
+      value: new BigNumber(genTotal).times(vdlPrice).toNumber(),
       append: 'USD $',
     });
     const valueSent = formatNumber({
@@ -792,6 +820,20 @@ class Component extends PureComponent<Props, State> {
     return (
       <RowComponent id='send-wrapper' justifyContent='space-between'>
         <FormWrapper>
+          <Label value='Shield coins from:' />
+          <SelectSendComponent
+            onChange={value => this.setState({ from: `${value}` })}
+            value={from}
+            placeholder='From Address'
+            options={genBalances.map(({ address: vAddress, balance: addressBalance }) => ({
+              label: `[ ${formatNumber({
+                append: `${coinName} `,
+                value: addressBalance,
+              })} ]  ${vAddress}`,
+              value: vAddress,
+            }))}
+            capitalize={false}
+          />
           <Label value='Shield coins to:' />
           <SelectSendComponent
             onChange={this.handleChange('to')}
@@ -808,7 +850,7 @@ class Component extends PureComponent<Props, State> {
           <InfoCard>
             <InfoContent>
               <InfoCardLabel value='VDL Requiring Shielding' />
-              <TextComponent value={generated} size={2.25} isBold />
+              <TextComponent value={genTotal} size={2.25} isBold />
               <InfoCardUSD value={vdlBalanceInUsd} size={0.84375} />
             </InfoContent>
           </InfoCard>

@@ -66,7 +66,7 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => ({
       ].map(masternode => ({
         rank: masternode.rank,
         network: masternode.network,
-        // ip: masternode.ip,
+        // ip: masternode.ip, // TODO: after vita is live
         txHash: masternode.txhash,
         outIdx: masternode.outidx,
         status: masternode.status,
@@ -86,7 +86,8 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => ({
   },
   triggerStartMasternodes: async () => {
     dispatch(startMasternodes());
-    const [masternodesErr, masternodesResult] = await eres(rpc.startmasternode('all', "0"));
+    const { mnAliasInput } = this.props;
+    const [masternodesErr, masternodesResult] = await eres(rpc.startmasternode('all', '0'));
     if (masternodesErr || !masternodesResult) {
       return dispatch(startMasternodesError({
         error: masternodesErr.message,

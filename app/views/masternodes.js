@@ -268,7 +268,7 @@ export class Component extends PureComponent<Props> {
 
   render() {
     const {
-      error, masternodes, hasNextPage, triggerStartMasternodes, startMasternodesResult, isLoading,
+      error, masternodes, hasNextPage, triggerStartMasternodes, startMasternodesResult,
     } = this.props;
 
     const masternodesSize = masternodes.length;
