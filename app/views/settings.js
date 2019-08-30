@@ -33,7 +33,7 @@ const MN_IP = 'Masternode IP Address';
 const MN_ALIAS = 'Masternode Alias';
 const MN_OUTPUTS = 'Masternode Outputs';
 const MN_KEY = 'Masternode Key';
-const SETUP_MASTERNODE_SUCCESS_CONTENT = 'RESTART REQUIRED: Successfully added masternode to file.'
+const SETUP_MASTERNODE_SUCCESS_CONTENT = 'RESTART REQUIRED: Successfully added masternode to file.';
 
 const EXPORT_VIEW_KEYS_TITLE = 'Export View Keys';
 const SETUP_MASTERNODE_TITLE = 'Setup Masternode';
@@ -319,35 +319,33 @@ export class SettingsView extends PureComponent<Props, State> {
   };
 
   updateMasternodeConfig = () => {
-    const { mnOutputValue, mnIpAddress, mnPrivateKey, mnAlias, error } = this.state;
-    let err = false;
+    const {
+      mnOutputValue, mnIpAddress, mnPrivateKey, mnAlias, error,
+    } = this.state;
+    const err = false;
 
-    if(!mnOutputValue || !mnIpAddress || !mnPrivateKey || !mnAlias){return this.setState({error: 'Complete all inputs'})}
+    if (!mnOutputValue || !mnIpAddress || !mnPrivateKey || !mnAlias) { return this.setState({ error: 'Complete all inputs' }); }
     let mnIPaddr = mnIpAddress;
-    if(!mnIPaddr.includes(':7676')){
-      mnIPaddr = mnIPaddr + ':7676';
+    if (!mnIPaddr.includes(':7676')) {
+      mnIPaddr += ':7676';
     }
-    
-    const mnLine = (mnAlias + ' ' + 
-                      mnIPaddr + ' ' + 
-                      mnPrivateKey + ' ' +
-                      mnOutputValue)
-    
-    fs.appendFile(path.join(this.getWalletFolderPath(), 'masternode.conf'), mnLine, function (err) {
+
+    const mnLine = (`\n${mnAlias} ${mnIPaddr} ${mnPrivateKey} ${mnOutputValue}`);
+
+    fs.appendFile(path.join(this.getWalletFolderPath(), 'masternode.conf'), mnLine, (err) => {
       if (err) throw err;
-      console.log('masternode.conf Saved!');
+      // console.log('masternode.conf Saved!');
     });
 
-    if(err){
+    if (err) {
       this.setState({
         error: err,
-      })
-    }else{
+      });
+    } else {
       this.setState({
         successMNsetup: true,
-      })
+      });
     }
-    
   };
 
   exportPrivateKeys = async () => {
@@ -596,7 +594,7 @@ export class SettingsView extends PureComponent<Props, State> {
                 placeholder='Select MN Output'
                 options={mnOutputs.map(({ txhash, outputidx }) => ({
                   label: `${txhash}`,
-                  value:  `${txhash} ${outputidx}`,
+                  value: `${txhash} ${outputidx}`,
                 }))}
                 capitalize={false}
               />
@@ -607,13 +605,13 @@ export class SettingsView extends PureComponent<Props, State> {
                 inputType='input'
                 rows={1}
               />
-             <StatusWrapper>
-            {successMNsetup && (
-              <StatusTextSuccess value={SETUP_MASTERNODE_SUCCESS_CONTENT} />
-              )}
-              {error && <StatusTextError value={error} align='center' />}
-            </StatusWrapper>
-          </ModalContent>
+              <StatusWrapper>
+                {successMNsetup && (
+               <StatusTextSuccess value={SETUP_MASTERNODE_SUCCESS_CONTENT} />
+               )}
+                {error && <StatusTextError value={error} align='center' />}
+              </StatusWrapper>
+            </ModalContent>
           )}
         </ConfirmDialogComponent>
         {/* End MN outputs */}
