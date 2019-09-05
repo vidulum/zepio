@@ -64,11 +64,12 @@ const getDaemonOptions = ({
 	const defaultOptions = [
 		'-server=1',
 		'-showmetrics=1',
+		'-txindex=1',
 		'-metricsui=0',
 		'-metricsrefreshtime=1',
 		`-rpcuser=${username}`,
 		`-rpcpassword=${password}`,
-		...(isTestnet() ? ['-testnet', '-addnode=155.138.148.240'] : ['-addnode=downloads.vidulum.app']),
+		...(isTestnet() ? ['-testnet', '-addnode=vdlt-explorer.vidulum.app'] : ['-addnode=downloads.vidulum.app']),
 		// Overwriting the settings with values taken from "vidulum.conf"
 		...optionsFromVidulumConf,
 	];

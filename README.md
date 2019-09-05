@@ -2,7 +2,7 @@
 
 # Vidulum Desktop Wallet | Cross-platform Sapling-enabled Full-node VDL Desktop Wallet
 
-Vidulum Desktop Wallet is a Sapling-enabled shielded-address-first Vidulum wallet, featuring cross-platform applications (macOS, Windows and Linux), built-in full node with support for `mainnet` and `testnet`, as well as `dark` and `light` themes.
+Vidulum Desktop Wallet is a cross-platform, sapling-enabled, full node VDL client. Supports `mainnet` and `testnet`, as well as `dark` and `light` UI themes. Dedicated tab for shielding from multiple addresses at once. Masternode configuration, monitoring, and provisioning with just a few button clicks. Import/Export private keys, one-click wallet backup, RPC Console (under development) and easily generated QR codes for both public and (shielded) private addresses.
 
 ### [Latest Documentation](https://github.com/vidulum)
 
@@ -58,8 +58,12 @@ To build the application locally follow the instructions below:
 ```bash
 # Make sure you are inside of the main `DesktopWallet` folder
 
-# Run Build Script
+# Run Build Script (all platforms)
 yarn electron:distall
+# Linux build
+yarn electron:dist --linux
+# Windows build
+yarn electron:dist --win
 
 # Executables and binaries available under `/dist` folder
 ```

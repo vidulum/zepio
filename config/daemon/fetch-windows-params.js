@@ -20,7 +20,7 @@ import { log } from './logger';
 const queue = new Queue({ concurrency: 2, autoStart: false });
 
 const httpClient = got.extend({
-  baseUrl: 'https://z.cash/downloads/',
+  baseUrl: 'https://github.com/vidulum/sapling-params/releases/download/sapling',
   retry: 3,
   useElectronNet: true,
 });

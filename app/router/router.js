@@ -17,6 +17,7 @@ import { SettingsContainer } from '../containers/settings';
 import { MasternodesContainer } from '../containers/masternodes';
 import { NotFoundView } from '../views/not-found';
 import { ConsoleView } from '../views/console';
+import { InfoView } from '../views/info';
 import { AppContainer as LayoutComponent } from '../containers/app';
 import { HeaderComponent } from '../components/header';
 
@@ -29,6 +30,7 @@ import {
   CONSOLE_ROUTE,
   TRANSACTIONS_ROUTE,
   MASTERNODES_ROUTE,
+  INFO_ROUTE,
 } from '../constants/routes';
 
 const FullWrapper = styled.div`
@@ -56,25 +58,26 @@ export const RouterComponent = ({
   location: Location,
   history: RouterHistory,
 }) => (
-  <FullWrapper>
-    <HeaderComponent title={getTitle(location.pathname)} />
-    <ContentWrapper>
-      <SidebarContainer location={location} history={history} />
-      <LayoutComponent>
-        <ScrollTopComponent>
-          <Switch>
-            <Route exact path={DASHBOARD_ROUTE} component={DashboardContainer} />
-            <Route path={`${SEND_ROUTE}/:to?`} component={SendContainer} />
-            <Route path={`${SHIELD_ROUTE}/:to?`} component={ShieldContainer} />
-            <Route path={RECEIVE_ROUTE} component={ReceiveContainer} />
-            <Route path={SETTINGS_ROUTE} component={SettingsContainer} />
-            <Route path={CONSOLE_ROUTE} component={ConsoleView} />
-            <Route path={TRANSACTIONS_ROUTE} component={TransactionsContainer} />
-            <Route path={MASTERNODES_ROUTE} component={MasternodesContainer} />
-            <Route component={NotFoundView} />
-          </Switch>
-        </ScrollTopComponent>
-      </LayoutComponent>
-    </ContentWrapper>
-  </FullWrapper>
-);
+    <FullWrapper>
+      <HeaderComponent title={getTitle(location.pathname)} />
+      <ContentWrapper>
+        <SidebarContainer location={location} history={history} />
+        <LayoutComponent>
+          <ScrollTopComponent>
+            <Switch>
+              <Route exact path={DASHBOARD_ROUTE} component={DashboardContainer} />
+              <Route path={`${SEND_ROUTE}/:to?`} component={SendContainer} />
+              <Route path={`${SHIELD_ROUTE}/:to?`} component={ShieldContainer} />
+              <Route path={RECEIVE_ROUTE} component={ReceiveContainer} />
+              <Route path={SETTINGS_ROUTE} component={SettingsContainer} />
+              <Route path={CONSOLE_ROUTE} component={ConsoleView} />
+              <Route path={TRANSACTIONS_ROUTE} component={TransactionsContainer} />
+              <Route path={MASTERNODES_ROUTE} component={MasternodesContainer} />
+              <Route path={INFO_ROUTE} component={InfoView} />
+              <Route component={NotFoundView} />
+            </Switch>
+          </ScrollTopComponent>
+        </LayoutComponent>
+      </ContentWrapper>
+    </FullWrapper>
+  );

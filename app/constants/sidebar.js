@@ -24,6 +24,10 @@ import MasternodesIconActive from '../assets/images/masternodes_icon_active.svg'
 import ShieldIconActive from '../assets/images/shield_icon_active.svg';
 import ShieldIconDark from '../assets/images/shield_icon_dark.svg';
 import ShieldIconLight from '../assets/images/shield_icon_light.svg';
+import InfoIconLight from '../assets/images/info_icon_light.svg';
+import InfoIconDark from '../assets/images/info_icon_dark.svg';
+import InfoIconActive from '../assets/images/info_icon_active.svg';
+
 
 import {
   DASHBOARD_ROUTE,
@@ -34,6 +38,7 @@ import {
   CONSOLE_ROUTE,
   TRANSACTIONS_ROUTE,
   MASTERNODES_ROUTE,
+  INFO_ROUTE,
 } from './routes';
 import { LIGHT } from './themes';
 
@@ -124,6 +129,17 @@ export const MENU_OPTIONS = [
       }
 
       return (isActive) ? ConsoleIconActive : ConsoleIconDark;
+    },
+  },
+  {
+    label: 'Info',
+    route: INFO_ROUTE,
+    icon: (isActive: boolean, themeMode: string) => {
+      if (themeMode === LIGHT) {
+        return InfoIconLight;
+      }
+
+      return (isActive) ? InfoIconActive : InfoIconDark;
     },
   },
 ];
