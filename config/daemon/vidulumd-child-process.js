@@ -222,9 +222,10 @@ const runDaemon: () => Promise<?ChildProcess> = () => new Promise(async (resolve
 		store.set(VIDULUM_NETWORK, optionsFromVidulumConf.testnet === '1' ? TESTNET : MAINNET);
 	}
 
-	if (!optionsFromVidulumConf.rpcuser) store.set('rpcuser', uuid());
-	if (!optionsFromVidulumConf.rpcpassword) store.set('rpcpassword', uuid());
-	//if (!optionsFromVidulumConf.rpcport) store.set('rpcport', '27676');
+	// THIS WAS SETTING IDENTICAL STRINGS FOR RPC CREDS!! //
+	// if (!optionsFromVidulumConf.rpcuser) store.set('rpcuser', uuid());
+	// if (!optionsFromVidulumConf.rpcpassword) store.set('rpcpassword', uuid());
+	// if (!optionsFromVidulumConf.rpcport) store.set('rpcport', '27676');
 
 	const rpcCredentials = {
 		username: store.get('rpcuser'),

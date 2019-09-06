@@ -13,7 +13,6 @@ IF NOT EXIST %AppData%\Vidulum\vidulum.conf (
     echo addnode=downloads.vidulum.app
     echo rpcuser=username%random%%random%
     echo rpcpassword=password%random%%random%%random%
-    echo rpcport=17676
     echo daemon=1
     echo txindex=1
     echo showmetrics=0
