@@ -5,8 +5,8 @@ import path from 'path';
 import isDev from 'electron-is-dev';
 
 // eslint-disable-next-line
-export default () => (isDev
-  ? path.join(__dirname, '..', '..', './bin')
+export default () => (isDev ?
+  path.join(__dirname, '..', '..', './bin')
   // eslint-disable-next-line
   : // $FlowFixMe
   path.join(process.resourcesPath, 'bin'));

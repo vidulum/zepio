@@ -1,7 +1,4 @@
 // @flow
-
-/* eslint-disable consistent-return */
-
 import fs from 'fs';
 import path from 'path';
 import cp from 'child_process';
@@ -12,7 +9,6 @@ import eres from 'eres';
 import got from 'got';
 import Queue from 'p-queue';
 
-// eslint-disable-next-line
 import { app, mainWindow } from '../electron';
 import getBinariesPath from './get-binaries-path';
 import { log } from './logger';
@@ -25,7 +21,7 @@ const httpClient = got.extend({
   useElectronNet: true,
 });
 
-const FILES: Array<{ name: string, hash: string }> = [
+const FILES: Array < { name: string, hash: string } > = [
   {
     name: 'sprout-proving.key',
     hash: '8bc20a7f013b2b58970cddd2e7ea028975c88ae7ceb9259a5344a16bc2c0eef7',
@@ -60,8 +56,9 @@ const checkSha256 = (pathToFile: string, expectedHash: string) => new Promise((r
 });
 
 // eslint-disable-next-line max-len
-const downloadFile = ({ file, pathToSave }): Promise<*> => new Promise((resolve, reject) => {
-  if (!mainWindow.isDestroyed()) mainWindow.webContents.send('vidulumd-params-download', `Downloading ${file.name}...`);
+const downloadFile = ({ file, pathToSave }): Promise < * > => new Promise((resolve, reject) => {
+  if (!mainWindow.isDestroyed()) mainWindow.webContents.send('vidulumd-params-download',
+    `Downloading ${file.name}...`);
   log(`Downloading ${file.name}...`);
 
   httpClient
@@ -85,7 +82,7 @@ const downloadFile = ({ file, pathToSave }): Promise<*> => new Promise((resolve,
 let missingDownloadParam = false;
 
 // eslint-disable-next-line
-export default (): Promise<*> => new Promise((resolve, reject) => {
+export default (): Promise < * > => new Promise((resolve, reject) => {
   const firstRunProcess = cp.spawn(path.join(getBinariesPath(), 'win', 'first-run.bat'));
   firstRunProcess.stdout.on('data', data => log(data.toString()));
   firstRunProcess.stderr.on('data', data => reject(data.toString()));
@@ -104,7 +101,8 @@ export default (): Promise<*> => new Promise((resolve, reject) => {
         if (cannotAccess) {
           missingDownloadParam = true;
           // eslint-disable-next-line max-len
-          queue.add(() => downloadFile({ file, pathToSave }).then(() => log(`Download ${file.name} finished!`)));
+          queue.add(() => downloadFile({ file, pathToSave })
+            .then(() => log(`Download ${file.name} finished!`)));
         } else {
           const isValid = await checkSha256(pathToSave, file.hash);
           if (isValid) {
@@ -113,7 +111,8 @@ export default (): Promise<*> => new Promise((resolve, reject) => {
             log(`File: ${file.name} failed in the SHASUM validation, downloading again...`);
             queue.add(() => {
               // eslint-disable-next-line max-len
-              downloadFile({ file, pathToSave }).then(() => log(`Download ${file.name} finished!`));
+              downloadFile({ file, pathToSave })
+                .then(() => log(`Download ${file.name} finished!`));
             });
           }
         }

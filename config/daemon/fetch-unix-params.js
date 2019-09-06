@@ -1,13 +1,13 @@
 // @flow
-
 import path from 'path';
 import cp from 'child_process';
 
 import getBinariesPath from './get-binaries-path';
 import { log } from './logger';
 
-// eslint-disable-next-line
-export default (): Promise<*> => new Promise((resolve, reject) => {
+// The beggining ;p this first promise fires off vidulum-fetch-params
+
+export default (): Promise < * > => new Promise((resolve, reject) => {
   const processName = path.join(getBinariesPath(), 'vidulum-fetch-params');
 
   const childProcess = cp.spawn(processName);
@@ -19,7 +19,6 @@ export default (): Promise<*> => new Promise((resolve, reject) => {
     if (code !== 0 || err) {
       reject(new Error(err));
     }
-
     resolve();
   });
 });

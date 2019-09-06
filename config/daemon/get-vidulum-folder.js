@@ -1,7 +1,7 @@
 // @flow
 import os from 'os';
 import path from 'path';
-import electron from 'electron'; // eslint-disable-line
+import electron from 'electron';
 
 export const getVidulumFolder = () => {
   const { app } = electron;
@@ -14,5 +14,7 @@ export const getVidulumFolder = () => {
     return path.join(app.getPath('home'), '.vidulum');
   }
 
-  return path.join(app.getPath('appData'), 'Vidulum');
+  if (os.platform() === 'win32') {
+    return path.join(app.getPath('appData'), 'Vidulum');
+  }
 };

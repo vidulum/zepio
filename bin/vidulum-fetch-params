@@ -2,8 +2,6 @@
 
 set -eu
 
-
-
 # Create default vidulum.conf
 if [[ "$OSTYPE" == "darwin"* ]]; then
   if [ ! -e "$HOME/Library/Application Support/Vidulum/vidulum.conf" ]; then
@@ -12,7 +10,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     echo "addnode=downloads.vidulum.app" >> "$HOME/Library/Application Support/Vidulum/vidulum.conf"
     echo "rpcuser=username$(LC_CTYPE=C tr -dc A-Za-z0-9 < /dev/urandom | fold -w ${1:-32} | head -n 1)" >> "$HOME/Library/Application Support/Vidulum/vidulum.conf"
     echo "rpcpassword=password$(LC_CTYPE=C tr -dc A-Za-z0-9 < /dev/urandom | fold -w ${1:-32} | head -n 1)" >> "$HOME/Library/Application Support/Vidulum/vidulum.conf"
-    echo "daemon=0" >> "$HOME/Library/Application Support/Vidulum/vidulum.conf"
+    echo "daemon=1" >> "$HOME/Library/Application Support/Vidulum/vidulum.conf"
     echo "txindex=1" >> "$HOME/Library/Application Support/Vidulum/vidulum.conf"
     echo "showmetrics=1" >> "$HOME/Library/Application Support/Vidulum/vidulum.conf"
     echo "gen=0" >> "$HOME/Library/Application Support/Vidulum/vidulum.conf"
@@ -32,7 +30,7 @@ elif [ ! -e "$HOME/.vidulum/vidulum.conf" ]; then
     echo "addnode=downloads.vidulum.app" >> "$HOME/.vidulum/vidulum.conf"
     echo "rpcuser=username$(LC_CTYPE=C tr -dc A-Za-z0-9 < /dev/urandom | fold -w ${1:-32} | head -n 1)" >> "$HOME/.vidulum/vidulum.conf"
     echo "rpcpassword=password$(LC_CTYPE=C tr -dc A-Za-z0-9 < /dev/urandom | fold -w ${1:-32} | head -n 1)" >> "$HOME/.vidulum/vidulum.conf"
-    echo "daemon=0" >> "$HOME/.vidulum/vidulum.conf"
+    echo "daemon=1" >> "$HOME/.vidulum/vidulum.conf"
     echo "txindex=1" >> "$HOME/.vidulum/vidulum.conf"
     echo "showmetrics=1" >> "$HOME/.vidulum/vidulum.conf"
     echo "gen=0" >> "$HOME/.vidulum/vidulum.conf"
@@ -70,7 +68,7 @@ CURLCMD="$(command -v curl || echo '')"
 
 # fetch methods can be disabled with ZC_DISABLE_SOMETHING=1
 ZC_DISABLE_WGET="${ZC_DISABLE_WGET:-}"
-ZC_DISABLE_IPFS="${ZC_DISABLE_IPFS:-}"
+ZC_DISABLE_IPFS=1
 ZC_DISABLE_CURL="${ZC_DISABLE_CURL:-}"
 
 function fetch_wget {
@@ -225,7 +223,7 @@ integrity with sha256sum.
 If they already exist locally, it will exit now and do nothing else.
 EOF
 
-    # Now create PARAMS_DIR and insert a README if necessary:
+# Now create PARAMS_DIR and insert a README if necessary:
     if ! [ -d "$PARAMS_DIR" ]
     then
         mkdir -p "$PARAMS_DIR"

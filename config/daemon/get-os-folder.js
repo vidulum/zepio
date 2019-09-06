@@ -1,7 +1,5 @@
 // @flow
-
 import os from 'os';
-
 // eslint-disable-next-line
 export default () => {
   if (os.platform() === 'darwin') {
@@ -12,5 +10,7 @@ export default () => {
     return 'win';
   }
 
-  return 'linux';
+  if (os.platform() === 'linux') {
+    return 'linux';
+  }
 };

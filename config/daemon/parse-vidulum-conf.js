@@ -6,44 +6,42 @@ import { locateVidulumConf } from './locate-vidulum-conf';
 import { filterObjectNullKeys } from '../../app/utils/filter-object-null-keys';
 
 type VidulumConfFile = {
-  testnet: ?string,
-  regtest: ?string,
-  proxy: ?string,
-  bind: ?string,
-  whitebind: ?string,
-  addnode: ?string,
-  connect: ?string,
-  listen: ?string,
-  maxconnections: ?string,
-  server: ?string,
-  rpcbind: ?string,
-  rpcuser: ?string,
-  rpcpassword: ?string,
-  rpcclienttimeout: ?string,
-  rpcallowip: ?string,
-  rpcport: ?string,
-  rpcconnect: ?string,
-  sendfreetransactions: ?string,
-  txconfirmtarget: ?string,
-  gen: ?string,
-  genproclimit: ?string,
-  keypool: ?string,
-  paytxfee: ?string,
-  datadir?: string,
-  conf?: string,
+  testnet: ? string,
+  regtest: ? string,
+  proxy: ? string,
+  bind: ? string,
+  whitebind: ? string,
+  addnode: ? string,
+  connect: ? string,
+  listen: ? string,
+  maxconnections: ? string,
+  server: ? string,
+  rpcbind: ? string,
+  rpcuser: ? string,
+  rpcpassword: ? string,
+  rpcclienttimeout: ? string,
+  rpcallowip: ? string,
+  rpcport: ? string,
+  rpcconnect: ? string,
+  sendfreetransactions: ? string,
+  txconfirmtarget: ? string,
+  gen: ? string,
+  genproclimit: ? string,
+  keypool: ? string,
+  paytxfee: ? string,
+  datadir ? : string,
+  conf ? : string,
 };
 
-// eslint-disable-next-line
-export const parseVidulumConf = (customDir: ?string): Promise<VidulumConfFile> => new Promise((resolve, reject) => {
+export const parseVidulumConf = (customDir: ? string): Promise < VidulumConfFile > => new Promise((resolve, reject) => {
   fs.readFile(customDir || locateVidulumConf(), (err, file) => {
     if (err) return reject(err);
 
     const fileString = file.toString();
 
-    /* eslint-disable no-unused-vars */
-    // $FlowFixMe
     const payload: VidulumConfFile = filterObjectNullKeys(
-      fileString.split('\n').reduce((acc, cur) => {
+      fileString.split('\n')
+      .reduce((acc, cur) => {
         if (!cur) return acc;
 
         const line = cur.trim();
@@ -51,7 +49,8 @@ export const parseVidulumConf = (customDir: ?string): Promise<VidulumConfFile> =
         if (line.startsWith('#')) return acc;
 
         const [key, value] = cur.split('=');
-        return { ...acc, [key.trim().toLowerCase()]: value.trim() };
+        return { ...acc, [key.trim()
+            .toLowerCase()]: value.trim() };
       }, {}),
     );
 
@@ -59,13 +58,14 @@ export const parseVidulumConf = (customDir: ?string): Promise<VidulumConfFile> =
   });
 });
 
-/* eslint-disable-next-line max-len */
-export const generateArgsFromConf = (obj: VidulumConfFile): Array<string> => Object.keys(obj).reduce((acc, key) => {
-  // We can omit the credentials for the command line
-  if (key === 'rpcuser' || key === 'rpcpassword') return acc;
+///----------------------xxxx----------------/
+export const generateArgsFromConf = (obj: VidulumConfFile): Array < string > => Object.keys(obj)
+  .reduce((acc, key) => {
+    // We can omit the credentials for the command line
+    if (key === 'rpcuser' || key === 'rpcpassword') return acc;
 
-  return acc.concat(`-${key}=${String(obj[key])}`);
-}, []);
+    return acc.concat(`-${key}=${String(obj[key])}`);
+  }, []);
 
 type ParseCmdArgsPayload = {
   rpcuser: string,

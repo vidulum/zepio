@@ -1,13 +1,12 @@
 // @flow
-
 import '@babel/polyfill';
 import dotenv from 'dotenv';
-
 import path from 'path';
-
-/* eslint-disable import/no-extraneous-dependencies */
 import {
-  app, BrowserWindow, typeof BrowserWindow as BrowserWindowType, Menu,
+  app,
+  BrowserWindow,
+  typeof BrowserWindow as BrowserWindowType,
+  Menu,
 } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import isDev from 'electron-is-dev';
@@ -125,7 +124,7 @@ app.on('ready', async () => {
   runDaemon()
     .then((proc) => {
       if (proc) {
-        vidulumLog(`Vidulum Daemon running. PID: ${proc.pid}`);
+        vidulumLog(`Vidulum daemon is running. PID: ${proc.pid}`);
         vidulumDaemon = proc;
       }
     })
@@ -139,7 +138,7 @@ app.on('window-all-closed', () => {
 });
 app.on('before-quit', () => {
   if (vidulumDaemon) {
-    vidulumLog('Graceful shutdown Vidulum Daemon, this may take a few seconds.');
-    vidulumDaemon.kill('SIGINT');
+    vidulumLog('Stopping the Vidulum daemon, this may take a few seconds.');
+    vidulumDaemon.kill('SIGKILL') && app.quit();
   }
 });
