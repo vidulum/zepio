@@ -37,8 +37,6 @@ const api: APIMethods = METHODS.reduce(
     ...obj,
     [method]: (...args) => {
       const RPC = getRPCConfig();
-      console.log(method)
-      console.log(args)
       console.info('[RPC CALL]', {
         method,
         payload: args,
@@ -57,7 +55,7 @@ const api: APIMethods = METHODS.reduce(
           },
         })
         .then((data) => {
-          console.log('[RPC CALL SUCCESS] -', method, data.body.result);
+          // console.log('[RPC CALL SUCCESS] -', method, data.body.result);
           return Promise.resolve(data.body && data.body.result);
         })
         .catch((payload) => {

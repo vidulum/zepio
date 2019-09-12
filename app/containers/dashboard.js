@@ -71,19 +71,19 @@ const mapDispatchToProps: (dispatch: Dispatch) => MapDispatchToProps = (dispatch
     const [unconfirmedBalanceErr, unconfirmedBalance] = await eres(rpc.getunconfirmedbalance());
     const [walletInfoDataErr, walletInfo] = await eres(rpc.getwalletinfo());
 
-    await fetch("https://api.coingecko.com/api/v3/simple/price?ids=vidulum&vs_currencies=usd")
-    .then(res => res.json())
-    .then(
-      (result) => {
-        store.set('VDL_DOLLAR_PRICE', String(result.vidulum.usd));
-      },
-      // Note: it's important to handle errors here
-      // instead of a catch() block so that we don't swallow
-      // exceptions from actual bugs in components.
-      (error) => {
-        store.set('VDL_DOLLAR_PRICE', '0');
-      }
-    )
+    await fetch('https://api.coingecko.com/api/v3/simple/price?ids=vidulum&vs_currencies=usd')
+      .then(res => res.json())
+      .then(
+        (result) => {
+          store.set('VDL_DOLLAR_PRICE', String(result.vidulum.usd));
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          store.set('VDL_DOLLAR_PRICE', '0');
+        },
+      );
 
 
     if (walletErr || zAddressesErr || vAddressesErr || transactionsErr
@@ -115,10 +115,10 @@ const mapDispatchToProps: (dispatch: Dispatch) => MapDispatchToProps = (dispatch
       sortByDescend('jsDay'),
     ])([...transactions, ...listShieldedTransactions()]);
 
-    //check for generated
+    // check for generated
     let generatedAmount = 0;
     transactions.map((transaction) => {
-      if(transaction.generated) {
+      if (transaction.generated) {
         generatedAmount += Math.abs(transaction.amount);
       }
     });
