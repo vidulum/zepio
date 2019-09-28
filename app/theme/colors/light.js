@@ -15,6 +15,7 @@ const starDust = '#777777';
 // Darks
 const black = '#000000';
 const text = '#142533';
+const doveRed = '#FF7878';
 const mineShaft = '#222222';
 const shipGray = '#3E3C42';
 const scorpion = '#989898';
@@ -112,7 +113,7 @@ export const LIGHT_COLORS = {
     masternodesSummaryColumnBorder: alto,  
 
   // Status Pill
-  statusPillLabel: text,
+  statusPillLabel: doveGray,
   statusPillBg: whiteHover,
   statusPillBorder: alto,
 
@@ -128,6 +129,10 @@ export const LIGHT_COLORS = {
   sidebarItemHoveredBg: offWhite,
   sidebarActiveItemLabel: manatee,
   sidebarActiveItemBorder: error,
+
+  // Accordion
+  AccordionBg: white,
+  AccordionBorder: alto,
 
   // QR Code
   qrCodeWrapperBg: white,

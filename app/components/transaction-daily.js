@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import { TransactionItemComponent, type Transaction } from './transaction-item';
 import { TextComponent } from './text';
+import Accordion from "./Accordion";
 
 const Wrapper = styled.div`
   margin-top: 20px;
@@ -29,14 +30,16 @@ const Day = styled(TextComponent)`
 
 type Props = {
   transactionsDate: string,
+  label: string,
   transactions: Transaction[],
   vdlPrice: number,
 };
 
 export const TransactionDailyComponent = ({ transactionsDate, transactions, vdlPrice }: Props) => (
   <Wrapper data-testid='TransactionsDaily'>
-    <Day value={transactionsDate} />
-    <TransactionsWrapper>
+    <Accordion>
+      <Day value={transactionsDate} />
+      <TransactionsWrapper label={transactionsDate}>
       {transactions.map(
         ({
           date, type, address, amount, transactionId, confirmed, confirmations,
@@ -56,5 +59,8 @@ export const TransactionDailyComponent = ({ transactionsDate, transactions, vdlP
         ),
       )}
     </TransactionsWrapper>
+      </Accordion>
+    
+   
   </Wrapper>
 );

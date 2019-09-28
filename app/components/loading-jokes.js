@@ -20,4 +20,5 @@ export const jokes = [
     'C program run. C program crash. C programmer quit.',
     'Where did the hacker go for the long weekend? Phishing.',
     'There are 10 types of people in the world: those who understand binary, and those who don’t.',
+    '2 hashes walk into a bar, one was a salted.',
   ];

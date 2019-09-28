@@ -131,6 +131,10 @@ export const DARK_COLORS = {
   sidebarItemHovered: white,
   sidebarItemHoveredBg: shark,
 
+  // Accordion
+  AccordionBg: heavyMetal,
+  AccordionBorder: manatee,
+
   // QRCode
   qrCodeWrapperBg: black,
   qrCodeWrapperBorder: black,
