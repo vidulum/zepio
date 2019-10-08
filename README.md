@@ -31,7 +31,7 @@ List of the main open source libraries and technologies used in building **Vidul
 
 To run **Vidulum Desktop Wallet** from source you'll need to perform the following steps:
 ```bash
-# Ensure you have Node LTS v8+
+# Ensure you have Node LTS v12+
 # https://nodejs.org/en/
 
 # Clone Codebase
@@ -39,7 +39,7 @@ git clone git@github.com:vidulum/DesktopWallet.git
 
 # Install Dependencies
 # inside of the `DesktopWallet` folder
-yarn install
+yarn install  <-- i like this one :)
 # or
 npm install
 
