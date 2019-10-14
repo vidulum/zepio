@@ -20,6 +20,8 @@ import { ColumnComponent } from '../components/column';
 import { Button } from '../components/button';
 import { ConfirmDialogComponent } from '../components/confirm-dialog';
 
+import { formatAddressLabel } from '../utils/address-book-utils';
+
 type Props = {
   theme: AppTheme,
 } & MapStateToProps &
@@ -171,7 +173,7 @@ export class Component extends PureComponent<Props> {
         rank={masternode.rank}
         ip={masternode.ip}
         network={masternode.network}
-        addr={masternode.addr}
+        addr={formatAddressLabel(masternode.addr)}
         status={masternode.status}
         lastSeen={masternode.lastSeen}
         lastPaid={masternode.lastPaid}

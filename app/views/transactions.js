@@ -11,6 +11,8 @@ import { EmptyTransactionsComponent } from '../components/empty-transactions';
 
 import type { MapDispatchToProps, MapStateToProps } from '../containers/transactions';
 
+import { formatAddressLabel } from '../utils/address-book-utils';
+
 type Props = MapDispatchToProps & MapStateToProps;
 
 const PAGE_SIZE = 15;
@@ -110,7 +112,7 @@ export class TransactionsView extends PureComponent<Props> {
         <TransactionItemComponent
           confirmed={transaction.confirmed}
           confirmations={transaction.confirmations}
-          address={transaction.address}
+          address={formatAddressLabel(transaction.address)}
           amount={transaction.amount}
           date={transaction.date}
           transactionId={transaction.transactionId}

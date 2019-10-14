@@ -42,6 +42,8 @@ import ArrowUpIconLight from '../assets/images/arrow_up_light.png';
 
 import type { MapDispatchToProps, MapStateToProps } from '../containers/send';
 
+import { formatAddressLabel } from '../utils/address-book-utils';
+
 const rotate = keyframes`
   from {
     transform: rotate(0deg);
@@ -697,14 +699,14 @@ class Component extends PureComponent<Props, State> {
         <ConfirmItemWrapper alignItems='center'>
           <ColumnComponent>
             <ItemLabel value='FROM' />
-            <TextComponent value={from} />
+            <TextComponent value={formatAddressLabel(from)} />
           </ColumnComponent>
         </ConfirmItemWrapper>
         <Divider opacity={0.3} />
         <ConfirmItemWrapper alignItems='center'>
           <ColumnComponent>
             <ItemLabel value='TO' />
-            <TextComponent value={to} />
+            <TextComponent value={formatAddressLabel(to)} />
           </ColumnComponent>
         </ConfirmItemWrapper>
         <Divider opacity={0.3} marginBottom='27.5px' />
@@ -810,7 +812,7 @@ class Component extends PureComponent<Props, State> {
               label: `[ ${formatNumber({
                 append: `${coinName} `,
                 value: addressBalance,
-              })} ]  ${address}`,
+              })} ]  ${formatAddressLabel(address)}`,
               value: address,
             }))}
             capitalize={false}
@@ -844,7 +846,7 @@ class Component extends PureComponent<Props, State> {
               label: `[ ${formatNumber({
                 append: `${coinName} `,
                 value: addressBalance,
-              })} ]  ${address}`,
+              })} ]  ${formatAddressLabel(address)}`,
               value: address,
             }))}
             capitalize={false}
@@ -853,7 +855,7 @@ class Component extends PureComponent<Props, State> {
           <Label value='To' />
           <InputComponent
             onChange={this.handleChange('to')}
-            value={to}
+            value={formatAddressLabel(to)}
             placeholder='Enter Address'
             renderRight={to ? this.renderValidationStatus : () => null}
             name='to'

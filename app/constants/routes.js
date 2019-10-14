@@ -8,3 +8,4 @@ export const RECEIVE_ROUTE = '/receive';
 export const TRANSACTIONS_ROUTE = '/transactions';
 export const SETTINGS_ROUTE = '/settings';
 export const MASTERNODES_ROUTE = '/masternodes';
+export const ADDRESS_BOOK_ROUTE = '/address book';

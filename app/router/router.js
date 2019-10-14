@@ -15,6 +15,7 @@ import { ShieldContainer } from '../containers/shield';
 import { ReceiveContainer } from '../containers/receive';
 import { SettingsContainer } from '../containers/settings';
 import { MasternodesContainer } from '../containers/masternodes';
+import { AddressBookContainer } from '../containers/addressbook';
 import { NotFoundView } from '../views/not-found';
 import { ConsoleView } from '../views/console';
 import { AppContainer as LayoutComponent } from '../containers/app';
@@ -29,6 +30,7 @@ import {
   CONSOLE_ROUTE,
   TRANSACTIONS_ROUTE,
   MASTERNODES_ROUTE,
+  ADDRESS_BOOK_ROUTE,
 } from '../constants/routes';
 
 const FullWrapper = styled.div`
@@ -71,6 +73,7 @@ export const RouterComponent = ({
             <Route path={CONSOLE_ROUTE} component={ConsoleView} />
             <Route path={TRANSACTIONS_ROUTE} component={TransactionsContainer} />
             <Route path={MASTERNODES_ROUTE} component={MasternodesContainer} />
+            <Route path={ADDRESS_BOOK_ROUTE} component={AddressBookContainer} />
             <Route component={NotFoundView} />
           </Switch>
         </ScrollTopComponent>

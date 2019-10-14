@@ -22,6 +22,8 @@ import { TransactionDetailsComponent } from './transaction-details';
 import { formatNumber } from '../utils/format-number';
 import { getCoinName } from '../utils/get-coin-name';
 
+import { formatAddressLabel } from '../utils/address-book-utils';
+
 const Wrapper = styled(RowComponent)`
   background-color: ${props => props.theme.colors.transactionItemBg};
   padding: 15px 17px;
@@ -131,6 +133,8 @@ const Component = ({
   const sentIcon = theme.mode === DARK ? SentIconDark : SentIconLight;
   const unconfirmedIcon = theme.mode === DARK ? UnconfirmedLight : UnconfirmedDark;
 
+  const displayAddress = formatAddressLabel(address);
+
   // TODO: style the tooltip correctly (overlay issue)
   // const showUnconfirmed = !confirmed || confirmations < 1 || address === '(Shielded)';
   const showUnconfirmed = false;
@@ -157,7 +161,7 @@ const Component = ({
                 </UnconfirmedStatusWrapper>
               )}
             </RelativeRowComponent>
-            <TransactionAddress value={address} />
+            <TransactionAddress value={displayAddress} />
           </RowComponent>
           <ColumnComponent alignItems='flex-end'>
             <TextComponent
@@ -174,7 +178,7 @@ const Component = ({
         <TransactionDetailsComponent
           amount={amount}
           date={date}
-          address={address}
+          address={displayAddress}
           confirmed={confirmed}
           confirmations={confirmations}
           transactionId={transactionId}

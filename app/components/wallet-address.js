@@ -18,6 +18,8 @@ import { DARK } from '../constants/themes';
 import { formatNumber } from '../utils/format-number';
 import { getCoinName } from '../utils/get-coin-name';
 
+import { formatAddressLabel } from '../utils/address-book-utils';
+
 const AddressWrapper = styled.div`
   align-items: center;
   display: flex;
@@ -259,7 +261,7 @@ class Component extends PureComponent<Props, State> {
             />
             <Address
               id='wallet-address-text'
-              value={address}
+              value={formatAddressLabel(address)}
               onClick={this.toggleMoreInfo}
               onDoubleClick={this.showMoreInfo}
             />

@@ -44,6 +44,8 @@ import ArrowUpIconLight from '../assets/images/arrow_up_light.png';
 
 import type { MapDispatchToProps, MapStateToProps } from '../containers/shield';
 
+import { formatAddressLabel } from '../utils/address-book-utils';
+
 const rotate = keyframes`
   from {
     transform: rotate(0deg);
@@ -829,7 +831,7 @@ class Component extends PureComponent<Props, State> {
               label: `[ ${formatNumber({
                 append: `${coinName} `,
                 value: addressBalance,
-              })} ]  ${vAddress}`,
+              })} ]  ${formatAddressLabel(vAddress)}`,
               value: vAddress,
             }))}
             capitalize={false}
@@ -840,7 +842,7 @@ class Component extends PureComponent<Props, State> {
             value={to}
             placeholder='Select a private address'
             options={zAddresses.map(address => ({
-              label: `${address}`,
+              label: `${formatAddressLabel(address)}`,
               value: address,
             }))}
             capitalize={false}

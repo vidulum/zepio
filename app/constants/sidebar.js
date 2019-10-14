@@ -24,6 +24,9 @@ import MasternodesIconActive from '../assets/images/masternodes_icon_active.svg'
 import ShieldIconActive from '../assets/images/shield_icon_active.svg';
 import ShieldIconDark from '../assets/images/shield_icon_dark.svg';
 import ShieldIconLight from '../assets/images/shield_icon_light.svg';
+import AddressBookIconActive from '../assets/images/address_book_active.svg';
+import AddressBookIconDark from '../assets/images/address_book_dark.svg';
+import AddressBookIconLight from '../assets/images/address_book_light.svg';
 
 import {
   DASHBOARD_ROUTE,
@@ -34,6 +37,7 @@ import {
   CONSOLE_ROUTE,
   TRANSACTIONS_ROUTE,
   MASTERNODES_ROUTE,
+  ADDRESS_BOOK_ROUTE,
 } from './routes';
 import { LIGHT } from './themes';
 
@@ -102,6 +106,17 @@ export const MENU_OPTIONS = [
       }
 
       return (isActive) ? MasternodesIconActive : MasternodesIconDark;
+    },
+  },
+  {
+    label: 'Address Book',
+    route: ADDRESS_BOOK_ROUTE,
+    icon: (isActive: boolean, themeMode: string) => {
+      if (themeMode === LIGHT) {
+        return AddressBookIconLight;
+      }
+
+      return (isActive) ? AddressBookIconActive : AddressBookIconDark;
     },
   },
   {
