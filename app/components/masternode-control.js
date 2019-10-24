@@ -31,7 +31,7 @@ const ButtonContainer = styled.div`
   flex-direction: column;
   min-width: 130px;
   border-right: 1px solid ${props => props.theme.colors.masternodesSummaryColumnBorder};
-  padding: 30px 30px;
+  padding: 20px 20px;
   position: relative;
   background-color: ${props => props.theme.colors.masternodesSummaryBg};
 `;
@@ -41,7 +41,7 @@ const MasternodeTotalContainer = styled.div`
   flex-direction: column;
   min-width: 130px;
   border-right: 1px solid ${props => props.theme.colors.masternodesSummaryColumnBorder};
-  padding: 30px 30px;
+  padding: 20px 20px;
   position: relative;
   background-color: ${props => props.theme.colors.masternodesSummaryBg};
   text-align: center;
@@ -51,7 +51,18 @@ const MasternodeOwnedContainer = styled.div`
   display: flex;
   flex-direction: column;
   min-width: 130px;
-  padding: 30px 30px;
+  border-right: 1px solid ${props => props.theme.colors.masternodesSummaryColumnBorder};
+  padding: 20px 20px;
+  position: relative;
+  background-color: ${props => props.theme.colors.masternodesSummaryBg};
+  text-align: center;
+`;
+
+const MasternodeRewardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-width: 130px;
+  padding: 20px 15px;
   position: relative;
   background-color: ${props => props.theme.colors.masternodesSummaryBg};
   text-align: center;
@@ -86,7 +97,7 @@ export const Component = ({
         />
       </ButtonContainer>
       <MasternodeTotalContainer>
-        <TextComponent value='Total Masternodes' isBold size={theme.fontSize.large} align='center' />
+        <TextComponent value='Total Masternodes' isBold size={theme.fontSize.large * 0.9} align='center' />
         <TextComponent
           value={masternodesCount}
           isBold
@@ -95,7 +106,7 @@ export const Component = ({
         />
       </MasternodeTotalContainer>
       <MasternodeOwnedContainer>
-        <TextComponent value='Owned Masternodes' isBold size={theme.fontSize.large} align='center' />
+        <TextComponent value='Owned Masternodes' isBold size={theme.fontSize.large * 0.9} align='center' />
         <TextComponent
           value={ownedMasternodesCount}
           isBold
@@ -103,6 +114,15 @@ export const Component = ({
           align='center'
         />
       </MasternodeOwnedContainer>
+      <MasternodeRewardContainer>
+        <TextComponent value='Estimated Reward' isBold size={theme.fontSize.large * 0.9} align='center' />
+        <TextComponent
+          value={masternodesCount == 0 ? '' : Math.floor(((4608 / masternodesCount) * ownedMasternodesCount))+' VDL/Day'}
+          isBold
+          size={theme.fontSize.large}
+          align='center'
+        />
+      </MasternodeRewardContainer>
     </Wrapper>
   </OutsideWrapper>
 );
