@@ -96,6 +96,7 @@ const PreWrapper = styled.pre`
   height: auto;
   max-height: 250px;
   overflow: auto;
+  text-align: center;
 `;
 
 const ErrorWrapper = styled.div`
@@ -227,17 +228,18 @@ export class Component extends PureComponent<Props> {
       return (
         <LoaderWrapper>
           <Loader src={loadingIcon} />
-          <TextComponent value='Starting masternodes...' />
+          <TextComponent value='Starting masternode...' />
         </LoaderWrapper>
       );
     }
 
     if (startMasternodesResult) {
+      console.log(startMasternodesResult.result);
       return (
         <SuccessWrapper id='send-success-wrapper'>
           <SuccessLabel value='Start Masternode Result' />
           <SuccessContentWrapper>
-            <PreWrapper>{JSON.stringify(startMasternodesResult, null, 2)}</PreWrapper>
+            <PreWrapper>{startMasternodesResult.result}</PreWrapper>
           </SuccessContentWrapper>
           <FormButton
             label='Done'
@@ -270,7 +272,7 @@ export class Component extends PureComponent<Props> {
 
   render() {
     const {
-      error, masternodes, hasNextPage, triggerStartMasternodes, startMasternodesResult,
+      error, masternodes, hasNextPage, triggerStartAlias, startMasternodesResult,
     } = this.props;
 
     const masternodesSize = masternodes.length;
@@ -287,12 +289,12 @@ export class Component extends PureComponent<Props> {
     return (
       <Fragment>
         <ConfirmDialogComponent
-          title='Start Masternodes Status'
+          title='Start Masternode Status'
           showButtons={false}
           renderTrigger={toggle => (
             <MasternodeControlComponent
               toggle={toggle}
-              startAllTrigger={() => triggerStartMasternodes()}
+              startAliasTrigger={(alias) => triggerStartAlias(alias)}
               startMasternodesResult={startMasternodesResult}
               masternodesCount={masternodesSize}
               ownedMasternodesCount={ownedMasternodesSize}

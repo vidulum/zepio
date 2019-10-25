@@ -1,10 +1,11 @@
 // @flow
 
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { withTheme } from 'styled-components';
 
 import { TextComponent } from './text';
 import { Button } from './button';
+import { InputComponent } from '../components/input';
 
 const OutsideWrapper = styled.div`
   margin-top: ${props => props.theme.layoutContentPaddingTop};
@@ -34,6 +35,11 @@ const ButtonContainer = styled.div`
   padding: 20px 20px;
   position: relative;
   background-color: ${props => props.theme.colors.masternodesSummaryBg};
+`;
+
+const AliasInputComponent = styled(InputComponent)`
+  border: 1px solid ${props => props.theme.colors.masternodesSummaryColumnBorder};
+  font-size: 12px;
 `;
 
 const MasternodeTotalContainer = styled.div`
@@ -69,7 +75,7 @@ const MasternodeRewardContainer = styled.div`
 `;
 
 type Props = {
-  startAllTrigger: () => void,
+  startAliasTrigger: (alias: string) => void,
   toggle: () => void,
   masternodesCount: number,
   ownedMasternodesCount: number,
@@ -77,23 +83,33 @@ type Props = {
 };
 
 export const Component = ({
-  startAllTrigger,
+  startAliasTrigger,
   toggle,
   masternodesCount,
   ownedMasternodesCount,
   theme,
-}: Props) => (
-  <OutsideWrapper>
+}: Props) => {
+
+  const [alias, setAlias] = useState('');
+
+  return <OutsideWrapper>
     <OutsideLabel value='Masternode Control' />
     <Wrapper>
       <ButtonContainer>
+        <AliasInputComponent
+          type='input'
+          onFocus={event => event.currentTarget.select()}
+          onChange={setAlias}
+          value={alias}
+        />
         <Button
           id='send-show-additional-options-button'
           onClick={() => {
-            startAllTrigger();
+            startAliasTrigger(alias);
             toggle();
           }}
-          label='Start All Masternodes'
+          label='Start Alias'
+          disabled={alias.length == 0}
         />
       </ButtonContainer>
       <MasternodeTotalContainer>
@@ -124,7 +140,7 @@ export const Component = ({
         />
       </MasternodeRewardContainer>
     </Wrapper>
-  </OutsideWrapper>
-);
+  </OutsideWrapper>;
+};
 
 export const MasternodeControlComponent = withTheme(Component);

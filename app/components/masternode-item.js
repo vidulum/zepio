@@ -88,15 +88,8 @@ export type Masternode = {
   theme: AppTheme,
 };
 
-export type StartMasternodeResultDetail = {
-  alias: string,
-  result: string,
-  error: string,
-}
-
 export type StartMasternodeResult = {
-  overall: string,
-  detail: StartMasternodeResultDetail[],
+  result: string
 }
 
 const Component = ({
