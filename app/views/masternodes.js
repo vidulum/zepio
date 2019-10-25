@@ -234,7 +234,6 @@ export class Component extends PureComponent<Props> {
     }
 
     if (startMasternodesResult) {
-      console.log(startMasternodesResult.result);
       return (
         <SuccessWrapper id='send-success-wrapper'>
           <SuccessLabel value='Start Masternode Result' />
