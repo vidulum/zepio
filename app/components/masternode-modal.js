@@ -68,7 +68,7 @@ const Component = ({
       <CloseIconImg src={CloseIcon} onClick={handleClose} />
     </CloseIconWrapper>
     <TitleWrapper>
-      <TextComponent value='Start Masternodes Result' align='center' />
+      <TextComponent value='Start Masternode Result' align='center' />
     </TitleWrapper>
     <DetailsWrapper>
       <TextComponent

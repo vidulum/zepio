@@ -43,7 +43,7 @@ export type MapDispatchToProps = {|
     count: number,
   }) => Promise<void>,
   resetMasternodesList: () => void,
-  triggerStartMasternodes: ({
+  triggerStartAlias: ({
     set: string,
     alias: string,
   }) => Promise<void>,
@@ -84,10 +84,9 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => ({
       }),
     );
   },
-  triggerStartMasternodes: async () => {
+  triggerStartAlias: async (alias: String) => {
     dispatch(startMasternodes());
-    const { mnAliasInput } = this.props;
-    const [masternodesErr, masternodesResult] = await eres(rpc.startmasternode('all', '0'));
+    const [masternodesErr, masternodesResult] = await eres(rpc.startalias(alias));
     if (masternodesErr || !masternodesResult) {
       return dispatch(startMasternodesError({
         error: masternodesErr.message,

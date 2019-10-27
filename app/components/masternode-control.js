@@ -1,10 +1,11 @@
 // @flow
 
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { withTheme } from 'styled-components';
 
 import { TextComponent } from './text';
 import { Button } from './button';
+import { InputComponent } from '../components/input';
 
 const OutsideWrapper = styled.div`
   margin-top: ${props => props.theme.layoutContentPaddingTop};
@@ -31,9 +32,14 @@ const ButtonContainer = styled.div`
   flex-direction: column;
   min-width: 130px;
   border-right: 1px solid ${props => props.theme.colors.masternodesSummaryColumnBorder};
-  padding: 30px 30px;
+  padding: 20px 20px;
   position: relative;
   background-color: ${props => props.theme.colors.masternodesSummaryBg};
+`;
+
+const AliasInputComponent = styled(InputComponent)`
+  border: 1px solid ${props => props.theme.colors.masternodesSummaryColumnBorder};
+  font-size: 12px;
 `;
 
 const MasternodeTotalContainer = styled.div`
@@ -41,7 +47,7 @@ const MasternodeTotalContainer = styled.div`
   flex-direction: column;
   min-width: 130px;
   border-right: 1px solid ${props => props.theme.colors.masternodesSummaryColumnBorder};
-  padding: 30px 30px;
+  padding: 20px 20px;
   position: relative;
   background-color: ${props => props.theme.colors.masternodesSummaryBg};
   text-align: center;
@@ -51,14 +57,25 @@ const MasternodeOwnedContainer = styled.div`
   display: flex;
   flex-direction: column;
   min-width: 130px;
-  padding: 30px 30px;
+  border-right: 1px solid ${props => props.theme.colors.masternodesSummaryColumnBorder};
+  padding: 20px 20px;
+  position: relative;
+  background-color: ${props => props.theme.colors.masternodesSummaryBg};
+  text-align: center;
+`;
+
+const MasternodeRewardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-width: 130px;
+  padding: 20px 15px;
   position: relative;
   background-color: ${props => props.theme.colors.masternodesSummaryBg};
   text-align: center;
 `;
 
 type Props = {
-  startAllTrigger: () => void,
+  startAliasTrigger: (alias: string) => void,
   toggle: () => void,
   masternodesCount: number,
   ownedMasternodesCount: number,
@@ -66,27 +83,37 @@ type Props = {
 };
 
 export const Component = ({
-  startAllTrigger,
+  startAliasTrigger,
   toggle,
   masternodesCount,
   ownedMasternodesCount,
   theme,
-}: Props) => (
-  <OutsideWrapper>
+}: Props) => {
+
+  const [alias, setAlias] = useState('');
+
+  return <OutsideWrapper>
     <OutsideLabel value='Masternode Control' />
     <Wrapper>
       <ButtonContainer>
+        <AliasInputComponent
+          type='input'
+          onFocus={event => event.currentTarget.select()}
+          onChange={setAlias}
+          value={alias}
+        />
         <Button
           id='send-show-additional-options-button'
           onClick={() => {
-            startAllTrigger();
+            startAliasTrigger(alias);
             toggle();
           }}
-          label='Start All Masternodes'
+          label='Start Alias'
+          disabled={alias.length == 0}
         />
       </ButtonContainer>
       <MasternodeTotalContainer>
-        <TextComponent value='Total Masternodes' isBold size={theme.fontSize.large} align='center' />
+        <TextComponent value='Total Masternodes' isBold size={theme.fontSize.large * 0.9} align='center' />
         <TextComponent
           value={masternodesCount}
           isBold
@@ -95,7 +122,7 @@ export const Component = ({
         />
       </MasternodeTotalContainer>
       <MasternodeOwnedContainer>
-        <TextComponent value='Owned Masternodes' isBold size={theme.fontSize.large} align='center' />
+        <TextComponent value='Owned Masternodes' isBold size={theme.fontSize.large * 0.9} align='center' />
         <TextComponent
           value={ownedMasternodesCount}
           isBold
@@ -103,8 +130,17 @@ export const Component = ({
           align='center'
         />
       </MasternodeOwnedContainer>
+      <MasternodeRewardContainer>
+        <TextComponent value='Estimated Reward' isBold size={theme.fontSize.large * 0.9} align='center' />
+        <TextComponent
+          value={masternodesCount == 0 ? '' : Math.floor(((4608 / masternodesCount) * ownedMasternodesCount))+' VDL/Day'}
+          isBold
+          size={theme.fontSize.large}
+          align='center'
+        />
+      </MasternodeRewardContainer>
     </Wrapper>
-  </OutsideWrapper>
-);
+  </OutsideWrapper>;
+};
 
 export const MasternodeControlComponent = withTheme(Component);
