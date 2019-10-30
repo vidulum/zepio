@@ -3,6 +3,7 @@
 import { connect } from 'react-redux';
 import eres from 'eres';
 import flow from 'lodash.flow';
+import { filter } from 'lodash';
 import groupBy from 'lodash.groupby';
 import dateFns from 'date-fns';
 import { BigNumber } from 'bignumber.js';
@@ -117,6 +118,7 @@ const mapDispatchToProps: (dispatch: Dispatch) => MapDispatchToProps = (dispatch
         amount: Math.abs(transaction.amount),
         fees: transaction.fee ? new BigNumber(transaction.fee).abs().toFormat(4) : 'N/A',
       })),
+      arr => arr.filter(function(o) { return (o.address !== '(Shielded)' || (o.address === '(Shielded)' && o.amount !== 0)); }),
       arr => groupBy(arr, obj => dateFns.format(obj.date, 'MMM DD, YYYY')),
       obj => Object.keys(obj).map(day => ({
         day,
