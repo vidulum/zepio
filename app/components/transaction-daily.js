@@ -58,9 +58,7 @@ export const TransactionDailyComponent = ({ transactionsDate, transactions, vdlP
           </Fragment>
         ),
       )}
-    </TransactionsWrapper>
-      </Accordion>
-    
-   
+     </TransactionsWrapper>
+   </Accordion>
   </Wrapper>
 );

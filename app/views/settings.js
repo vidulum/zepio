@@ -312,7 +312,7 @@ export class SettingsView extends PureComponent<Props, State> {
     const [err, result] = await eres(rpc.getmasternodeoutputs());
 
     this.setState({
-      mnOutputs: result,
+      mnOutputs: result.reverse(),
       successGetMnOutputs: true,
       isLoading: false,
     });
