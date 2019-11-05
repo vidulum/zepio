@@ -1,14 +1,21 @@
 # Experimental
 
+![Vidulum Desktop Wallet](https://travis-ci.org/vidulum/DesktopWallet.svg?branch=master)
 # Vidulum Desktop Wallet | Cross-platform Sapling-enabled Full-node VDL Desktop Wallet
 
 Vidulum Desktop Wallet is a Sapling-enabled shielded-address-first Vidulum wallet, featuring cross-platform applications (macOS, Windows and Linux), built-in full node with support for `mainnet` and `testnet`, as well as `dark` and `light` themes.
 
 ### [Latest Documentation](https://github.com/vidulum)
 
-### [Latest Release](https://github.com/vidulum/DesktopWallet/releases)
+### [Download Now](https://github.com/vidulum/DesktopWallet/releases)
 
-![Vidulum Desktop Wallet](https://github.com/vidulum/Vidulum-Press-Kit/raw/master/DesktopWalletSnip.PNG)
+![Vidulum Desktop Wallet](https://github.com/vidulum/Vidulum-Press-Kit/raw/master/Desktop%20Wallet%20Screenshots/DashLightTheme.PNG)
+
+![Vidulum Desktop Wallet](https://github.com/vidulum/Vidulum-Press-Kit/raw/master/Desktop%20Wallet%20Screenshots/DashwithWelcome.PNG)
+
+![Vidulum Desktop Wallet](https://github.com/vidulum/Vidulum-Press-Kit/raw/master/Desktop%20Wallet%20Screenshots/MasternodeView.PNG)
+
+![Vidulum Desktop Wallet](https://github.com/vidulum/Vidulum-Press-Kit/raw/master/Desktop%20Wallet%20Screenshots/SendwithSuccess.PNG)
 
 ## Stack Information
 
