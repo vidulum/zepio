@@ -41,12 +41,12 @@ export type MapDispatchToProps = {|
   getMasternodes: ({
     offset: number,
     count: number,
-  }) => Promise<void>,
-  resetMasternodesList: () => void,
-  triggerStartAlias: ({
-    set: string,
-    alias: string,
-  }) => Promise<void>,
+  }) => Promise < void>,
+    resetMasternodesList: () => void,
+      triggerStartAlias: ({
+        set: string,
+        alias: string,
+      }) => Promise < void>,
 |};
 
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => ({
@@ -66,7 +66,7 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => ({
       ].map(masternode => ({
         rank: masternode.rank,
         network: masternode.network,
-        // ip: masternode.ip, // TODO: after vita is live
+        ip: masternode.ip,
         txHash: masternode.txhash,
         outIdx: masternode.outidx,
         status: masternode.status,

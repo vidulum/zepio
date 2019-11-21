@@ -4,7 +4,7 @@ import { openExternal } from './utils/open-external';
 import packageJson from '../package.json';
 
 const DOCS_URL = 'https://vidulum.app/';
-const REPOSITORY_URL = 'https://github.com/vidulum/zepio/';
+const REPOSITORY_URL = 'https://github.com/vidulum/DesktopWallet/';
 
 const menu = [
   {

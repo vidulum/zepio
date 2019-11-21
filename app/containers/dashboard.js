@@ -29,17 +29,17 @@ import type { Dispatch, FetchState } from '../types/redux';
 
 export type MapStateToProps = {|
   total: number,
-  shielded: number,
-  generated: number,
-  immature: number,
-  transparent: number,
-  unconfirmed: number,
-  error: null | string,
-  fetchState: FetchState,
-  vdlPrice: number,
-  addresses: string[],
-  transactions: TransactionsList,
-  isDaemonReady: boolean,
+    shielded: number,
+      generated: number,
+        immature: number,
+          transparent: number,
+            unconfirmed: number,
+              error: null | string,
+                fetchState: FetchState,
+                  vdlPrice: number,
+                    addresses: string[],
+                      transactions: TransactionsList,
+                        isDaemonReady: boolean,
 |};
 
 const mapStateToProps: AppState => MapStateToProps = ({ walletSummary, app }) => ({
@@ -58,7 +58,7 @@ const mapStateToProps: AppState => MapStateToProps = ({ walletSummary, app }) =>
 });
 
 export type MapDispatchToProps = {|
-  getSummary: () => Promise<void>,
+  getSummary: () => Promise < void>,
 |};
 
 const mapDispatchToProps: (dispatch: Dispatch) => MapDispatchToProps = (dispatch: Dispatch) => ({
@@ -69,7 +69,7 @@ const mapDispatchToProps: (dispatch: Dispatch) => MapDispatchToProps = (dispatch
     const [walletErr, walletSummary] = await eres(rpc.z_gettotalbalance());
     const [zAddressesErr, zAddresses = []] = await eres(rpc.z_listaddresses());
     const [vAddressesErr, vAddresses = []] = await eres(rpc.getaddressesbyaccount(''));
-    const [transactionsErr, transactions] = await eres(rpc.listtransactions('', 10080, 0)); // Load the last 10080 transactions - to guarantee at least 1 week of transactions
+    const [transactionsErr, transactions] = await eres(rpc.listtransactions('', 100, 0)); // Load the last 100 transactions
     const [unconfirmedBalanceErr, unconfirmedBalance] = await eres(rpc.getunconfirmedbalance());
     const [walletInfoDataErr, walletInfo] = await eres(rpc.getwalletinfo());
 
@@ -97,9 +97,9 @@ const mapDispatchToProps: (dispatch: Dispatch) => MapDispatchToProps = (dispatch
       );
     }
 
-    const oneWeekAgo = new Date().getTime()/1000 - (60*60*24*7);
+    const oneWeekAgo = new Date().getTime() / 1000 - (60 * 60 * 24 * 7);
     const filteredTransactions = [];
-    for (var i=transactions.length-1;i>=0;i--) {
+    for (var i = transactions.length - 1; i >= 0; i--) {
       if (transactions[i].time > oneWeekAgo) {
         filteredTransactions.push(transactions[i]);
       } else {
@@ -118,7 +118,7 @@ const mapDispatchToProps: (dispatch: Dispatch) => MapDispatchToProps = (dispatch
         amount: Math.abs(transaction.amount),
         fees: transaction.fee ? new BigNumber(transaction.fee).abs().toFormat(4) : 'N/A',
       })),
-      arr => arr.filter(function(o) { return (o.address !== '(Shielded)' || (o.address === '(Shielded)' && o.amount !== 0)); }),
+      arr => arr.filter(function (o) { return (o.address !== '(Shielded)' || (o.address === '(Shielded)' && o.amount !== 0)); }),
       arr => groupBy(arr, obj => dateFns.format(obj.date, 'MMM DD, YYYY')),
       obj => Object.keys(obj).map(day => ({
         day,
