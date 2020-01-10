@@ -2,9 +2,9 @@
 # * text=auto
 core.autocrlf=true
 # Declare files that will always have CRLF line endings on checkout.
-*.vue text eol=lf
-*.js text eol=lf
-*.html text eol=lf
+#*.vue text eol=lf
+#*.js text eol=lf
+#*.html text eol=lf
 
 # Denote all files that are truly binary and should not be modified.
 *.png binary
