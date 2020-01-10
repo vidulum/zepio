@@ -10,4 +10,3 @@ coverage
 flow-typed
 .env
 yarn-error.log
-yarn.lock
