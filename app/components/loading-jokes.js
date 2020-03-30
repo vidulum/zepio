@@ -21,4 +21,6 @@ export const jokes = [
     'Where did the hacker go for the long weekend? Phishing.',
     'There are 10 types of people in the world: those who understand binary, and those who don’t.',
     '2 hashes walk into a bar, one was a salted.',
+    'If holding your VDL is V-staking.... is mining it V-stalking?',
+    'An SEO expert walks into a bar, bars, lounge, night club, tavern, pub, beer, vodka, wine, whiskey…',
   ];
