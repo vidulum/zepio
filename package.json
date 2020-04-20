@@ -1,13 +1,13 @@
 {
   "name": "vidulum",
   "productName": "Vidulum",
-  "version": "2.0.5",
+  "version": "2.1.0",
   "description": "Vidulum Desktop | Cross-platform sapling-enabled full-node Vidulum Desktop Wallet",
   "main": "config/main.js",
   "homepage": "https://vidulum.app",
   "license": "MIT",
   "author": {
-    "name": "NERDiT Sas CoreyM",
+    "name": "Vidulum",
     "email": "contact@vidulum.org",
     "url": "https://vidulum.app"
   },
