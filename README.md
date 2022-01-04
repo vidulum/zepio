@@ -1,3 +1,7 @@
+# THIS DESKTOP WALLET IS DEPRECATED
+
+------------------------------------------
+
 # Experimental
 
 ![Vidulum Desktop Wallet](https://travis-ci.org/vidulum/DesktopWallet.svg?branch=master)
